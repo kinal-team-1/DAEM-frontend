@@ -1,0 +1,23 @@
+@import "react-toastify/dist/ReactToastify.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+html {
+    font-family: Poppins, sans-serif;
+}
+
+:root {
+    /*--toas*/
+}
+
+.Toastify__toast-body {
+    @apply flex items-start;
+}
+
+.Toastify__toast-icon {
+    @apply mt-2;
+}

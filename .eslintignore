@@ -1,0 +1,10 @@
+vite.config.js
+postcss.config.js
+tailwind.config.js
+i18n/i18n-react.jsx
+i18n/i18n-types.d.ts
+i18n/i18n-util.async.js
+i18n/i18n-util.js
+i18n/i18n-util.sync.js
+
+node_modules

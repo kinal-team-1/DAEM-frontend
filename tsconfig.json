@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "checkJs": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "lib": ["ESNext", "DOM"],
+        "target": "ESNext",
+    },
+    "include": ["./src/**/*",],
+    "exclude": ["./i18n/**/*", "node_modules", "eslint-custom-rules"]
+}
