@@ -1,76 +1,30 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faClose,
-  faMoon,
-  faSearch,
-  faSun,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useDarkModeService } from "../../services/dark-mode";
 import { DropDown } from "./DropDown";
-import { Searchbar } from "./SearchBar";
-import { useSearchService } from "../../services/search-bar";
-import { useNavbarMobileService } from "../../services/navbar-mobile-service.jsx";
-import { SOPORTED_LANGUAGES } from "../../config.js";
+import { SOPORTED_LANGUAGES } from "../../config";
+import logo from "../../assets/logo.png";
+import guatemalaShield from "../../assets/escudo-guatemala.png";
 
 export function TobBar() {
-  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
-  const { setCurrentSearch } = useSearchService();
-  const { setIsNavbarOpen } = useNavbarMobileService();
-
   return (
-    <>
-      <div className="hidden md:grid py-5 px-3 grid-cols-3 justify-items-center items-center">
-        <h1 className="justify-self-start text-2xl">Overview</h1>
-        <div className="justify-self-center h-full">
-          <Searchbar />
-        </div>
-        <div className="justify-self-end">
-          <TopBarButtons />
+    <div className="flex py-2 px-3 gap-2 justify-between items-center bg-black/80 text-white">
+      <div className="flex gap-3">
+        <img className="size-[80px]" src={guatemalaShield} alt="" />
+        <div className="border h-[80px]" />
+        <img className="size-[80px]" src={logo} alt="Logo" />
+        <div className="max-w-[95px]">
+          <h2 className="text-3xl text-center">DAEM</h2>
+          <p className="text-[8px] text-center">
+            Denuncias Anonimas contra explotacion de menores
+          </p>
         </div>
       </div>
-      {!isSearchBarOpen && (
-        <div className="py-2 px-1 flex md:hidden justify-between items-center border-b">
-          <button
-            type="button"
-            onClick={() => {
-              console.log("OPENING");
-              setIsNavbarOpen(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </button>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setIsSearchBarOpen(!isSearchBarOpen);
-              }}
-              className="px-2 py-1 size-[calc(100px/3)] rounded border cursor-pointer hover:text-primary-400"
-            >
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-            <TopBarButtons />
-          </div>
-        </div>
-      )}
-      {isSearchBarOpen && (
-        <div className="md:hidden flex gap-2 py-2 px-1 border-b justify-center">
-          <button
-            type="button"
-            onClick={() => {
-              setIsSearchBarOpen(!isSearchBarOpen);
-              setCurrentSearch("");
-            }}
-          >
-            <FontAwesomeIcon icon={faClose} />
-          </button>
-          <Searchbar autoFocus />
-        </div>
-      )}
-    </>
+      <div className="justify-self-end">
+        <TopBarButtons />
+      </div>
+    </div>
   );
 }
 
@@ -105,13 +59,13 @@ function TopBarButtons() {
         onClick={() => {
           setIsDark(!isDark);
         }}
-        className="px-2 py-1 size-[calc(100px/3)] rounded border cursor-pointer hover:text-primary-400"
+        className="px-2 py-1 size-[calc(100px/3)] rounded border cursor-pointer"
       >
         <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
       </button>
       <button
         type="button"
-        className="rounded border px-2 py-1 size-[calc(100px/3)] cursor-pointer hover:text-primary-400"
+        className="rounded border px-2 py-1 size-[calc(100px/3)] cursor-pointer"
       >
         <span className="text-sm">LC</span>
       </button>
