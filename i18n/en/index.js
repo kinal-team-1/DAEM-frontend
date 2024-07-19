@@ -9,7 +9,6 @@ import { login } from "./client/login";
 /** @satisfies { BaseTranslation } */
 const en = {
   // TODO: your translations go here
-  HI: "Hi {name:string}!",
   PAGES: {
     LOGIN: login,
   },
