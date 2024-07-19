@@ -5,7 +5,8 @@
  */
 
 import { login } from "./client/login";
-import { signup } from "./client/signup.js";
+import { signup } from "./client/signup";
+import { publish } from "./client/publish";
 
 /** @satisfies { Translation } */
 const es = {
@@ -13,6 +14,7 @@ const es = {
   PAGES: {
     LOGIN: login,
     SIGNUP: signup,
+    PUBLISH: publish,
   },
 };
 
