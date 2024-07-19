@@ -3,7 +3,7 @@ import { CaseForm } from "./components/CaseForm.jsx";
 export function Publish() {
   return (
     <div className="flex flex-col md:grid grid-cols-2 gap-5 h-full">
-      <div className="p-4 bg-black/60 text-white h-full flex flex-col gap-3 justify-center px-5">
+      <div className="p-4 text-white h-full flex flex-col gap-3 justify-center px-5">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
           cum cumque debitis ea et, eveniet itaque laudantium tempora vel.
