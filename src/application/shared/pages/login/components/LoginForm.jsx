@@ -25,6 +25,9 @@ export function LoginForm() {
       setUser(user);
       navigate(`/${locale}/publish`);
     },
+    onSettled: () => {
+      setTimeout(() => mutationLogin.reset(), 3000);
+    },
   });
 
   return (
@@ -33,9 +36,7 @@ export function LoginForm() {
         e.preventDefault();
         if (!mutationLogin.isIdle) return;
 
-        mutationLogin.mutateAsync(form).finally(() => {
-          setTimeout(() => mutationLogin.reset(), 3000);
-        });
+        mutationLogin.mutate(form);
       }}
       className="bg-black/70 flex flex-col gap-2 md:flex-row md:gap-0 h-fit max-w-[90%] text-xl rounded"
     >
