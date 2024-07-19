@@ -6,23 +6,20 @@ import { LocaleProvider, useLocaleService } from "./services/locale";
 import { NavbarMobileProvider } from "./services/navbar-mobile-service";
 import { SearchProvider } from "./services/search-bar";
 import { DarkModeProvider } from "./services/dark-mode";
-import { AuthProvider } from "./services/auth";
 
 const queryClient = new QueryClient();
 export function ContextWrapper() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <LocaleProvider>
-          <DarkModeProvider>
-            <SearchProvider>
-              <NavbarMobileProvider>
-                <App />
-              </NavbarMobileProvider>
-            </SearchProvider>
-          </DarkModeProvider>
-        </LocaleProvider>
-      </AuthProvider>
+      <LocaleProvider>
+        <DarkModeProvider>
+          <SearchProvider>
+            <NavbarMobileProvider>
+              <App />
+            </NavbarMobileProvider>
+          </SearchProvider>
+        </DarkModeProvider>
+      </LocaleProvider>
     </QueryClientProvider>
   );
 }
