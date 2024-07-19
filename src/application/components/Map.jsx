@@ -16,6 +16,15 @@ import PropTypes from "prop-types";
  * @param {MapProps} props - Component props
  * @returns {JSX.Element}
  */
+
+const icon = new Icon({
+  iconUrl: "/marker-icon.png",
+  // className: "leaflet-marker-icon",
+  // margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(222px, 100px, 0px); z-index: 100
+  className:
+    "ml-[-12px] mt-[-41px] w-[25px] h-[41px] transform translate3d-[222px,100px,0px] z-[100]",
+});
+
 function MapComponent({
   className,
   coordinates: [lat, long],
@@ -48,7 +57,7 @@ function MapComponent({
     markerInstance.current?.remove();
     markerInstance.current = marker([lat, long], {
       draggable: true,
-      icon: new Icon.Default(),
+      icon,
     }).addTo(mapInstance.current);
     markerInstance.current.on("dragend", (event) => {
       onMarkerDrag(
