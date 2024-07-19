@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import { LocationModal } from "./LocationModal.jsx";
 import { FilesModal } from "./FilesModal.jsx";
 import { createPublicCase } from "../../../../actions/POST/create-case.js";
+import { useAuthService } from "../../../../../services/auth.jsx";
 
 /**
  * @typedef {Object} CaseFormProps
@@ -23,13 +24,14 @@ import { createPublicCase } from "../../../../actions/POST/create-case.js";
  * @returns {React.ReactElement}
  */
 export function CaseForm({ className }) {
+  const { user } = useAuthService();
+  console.log({ user });
   const modalRef = /** @type {HTMLElement | null} */ useRef(null);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFilesModalOpen, setIsFilesModalOpen] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
-    submitter: "",
   });
   const [location, setLocation] = useState(null);
   const [files, setFiles] = useState([]);
@@ -52,7 +54,6 @@ export function CaseForm({ className }) {
     setForm({
       title: "",
       description: "",
-      submitter: "",
     });
   }, [mutation.isSuccess]);
 
@@ -67,8 +68,9 @@ export function CaseForm({ className }) {
             ...form,
             ...location,
             filepaths: files.map((f) => f.path),
+            // eslint-disable-next-line no-underscore-dangle
+            submitter: user._id,
           };
-          console.log({ payload });
           mutation.mutate(payload);
 
           setTimeout(() => {
