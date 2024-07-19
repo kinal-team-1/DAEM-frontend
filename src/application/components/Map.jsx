@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
  * @typedef {Object} MapProps
  * @property {string} [className] - CSS class
  * @property {number[]} coordinates - Latitude and longitude
+ * @property {(coordinates: L.LatLng, map: L.Map, marker: L.Marker) => void} onMapClick - Map click event
+ * @property {(coordinates: L.LatLng, map: L.Map, marker: L.Marker) => void} onMarkerDrag - Marker drag event
  */
 
 /**
@@ -14,10 +16,15 @@ import PropTypes from "prop-types";
  * @param {MapProps} props - Component props
  * @returns {JSX.Element}
  */
-function MapComponent({ className, coordinates: [lat, long] }) {
-  console.log("MAP RE RENDERED");
-  const mapInstance = useRef(null);
+function MapComponent({
+  className,
+  coordinates: [lat, long],
+  onMapClick,
+  onMarkerDrag,
+}) {
+  const mapInstance = /** @type L.Map */ useRef(null);
   const markerInstance = useRef(null);
+  const circleLayer = useRef(null);
 
   useEffect(() => {
     if (mapInstance.current) return;
@@ -29,7 +36,11 @@ function MapComponent({ className, coordinates: [lat, long] }) {
     }).addTo(mapInstance.current);
 
     mapInstance.current.on("click", (event) => {
-      console.log("MAP CLICKED", event.latlng);
+      onMapClick(
+        event.target.getLatLng(),
+        mapInstance.current,
+        markerInstance.current,
+      );
     });
   }, []);
 
@@ -39,15 +50,26 @@ function MapComponent({ className, coordinates: [lat, long] }) {
       draggable: true,
     }).addTo(mapInstance.current);
     markerInstance.current.on("dragend", (event) => {
-      console.log("MARKER DRAGGED", event.target.getLatLng());
+      onMarkerDrag(
+        event.target.getLatLng(),
+        mapInstance.current,
+        markerInstance.current,
+      );
     });
   }, [lat, long]);
 
   useEffect(() => {
     console.log("MAP COORDINATES CHANGED", lat, long);
+    if (circleLayer.current) {
+      mapInstance.current.removeLayer(circleLayer.current);
+    }
 
-    mapInstance.current.setView([lat, long], 13);
-    circle([lat, long], {
+    mapInstance.current.setView(
+      [lat, long],
+      mapInstance.current.getZoom() || 16,
+    );
+
+    circleLayer.current = circle([lat, long], {
       color: "rgb(0,72,255, 0.4)",
       fillColor: "rgb(0,72,255, 0.4)",
       fillOpacity: 0.5,
@@ -61,6 +83,8 @@ function MapComponent({ className, coordinates: [lat, long] }) {
 MapComponent.propTypes = {
   className: PropTypes.string.isRequired,
   coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  onMapClick: PropTypes.func.isRequired,
+  onMarkerDrag: PropTypes.func.isRequired,
 };
 
 export const Map = memo(MapComponent, (prevProps, nextProps) => {

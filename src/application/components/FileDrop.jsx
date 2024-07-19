@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
 import { uploadFile } from "../actions/POST/upload-file";
 
-export function FileDrop() {
+export function FileDrop({ className, onFileAdded }) {
   const uploadFileMutation = useMutation({
     mutationFn: uploadFile,
     onSuccess: (data) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
+      onFileAdded(uploadFileResponse);
 
       console.log({ uploadFileResponse, uploadFileMessage, uploadFileStatus });
     },
@@ -27,7 +28,9 @@ export function FileDrop() {
     useDropzone({ onDrop });
 
   return (
-    <div className="dark:text-silver-300 dark:bg-vulcan-950 hover:bg-silver-300 dark:hover:text-silver-500 dark:hover:bg-vulcan-950/90 p-1 max-w-[200px] rounded cursor-pointer bg-silver-200/50">
+    <div
+      className={`dark:text-silver-300 dark:bg-vulcan-950 hover:bg-silver-300 dark:hover:text-silver-500 dark:hover:bg-vulcan-950/90 p-1 rounded cursor-pointer bg-silver-200/50 ${className}`}
+    >
       <div
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...getRootProps()}

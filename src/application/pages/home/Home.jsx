@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Map } from "../../components/Map";
 import { FileDrop } from "../../components/FileDrop";
-import { TobBar } from "../../components/TopBar";
 import { AttachmentInput } from "../../components/AttachmentInput";
+import { TobBar } from "../../components/TopBar";
 
 export function Home() {
   const [coordinates, setCoordinates] = useState(["14.6464213", "-87.0192"]);
@@ -19,6 +19,14 @@ export function Home() {
   }, []);
   return (
     <div>
+      <div className="h-screen w-full fixed -z-10 top-0 left-0">
+        <img
+          className="min-h-full absolute object-cover"
+          src="/background-children.png"
+          alt="Background children"
+        />
+        <div className="bg-black/30 w-full h-full absolute" />
+      </div>
       <TobBar />
       <h1>Home</h1>
       <p>Some content</p>
@@ -55,13 +63,36 @@ export function Home() {
         </button>
       </div>
       <div className="px-4 py-5">
-        <Map className="h-[400px] w-full" coordinates={[lat, long]} />
+        <Map className="h-[200px] w-full" coordinates={[lat, long]} />
       </div>
       <div className="w-fit">
         <FileDrop />
       </div>
-      <div className="px-4 py-2">
-        <AttachmentInput />
+      <div className="flex">
+        <div className="p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 min-w-[400px]">
+          <input
+            type="text"
+            className="px-4 py-2 rounded bg-[transparent] border boder-white outline-none text-white"
+          />
+          <AttachmentInput />
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className="grow rounded-xl py-3 px-4 bg-black text-white"
+            >
+              Location
+            </button>
+            <button
+              type="button"
+              className="grow rounded-xl py-3 px-4 bg-black text-white"
+            >
+              Files
+            </button>
+          </div>
+          <button className="text-2xl rounded-xl py-3 px-4 bg-black text-white">
+            Presentar Caso
+          </button>
+        </div>
       </div>
     </div>
   );

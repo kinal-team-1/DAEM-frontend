@@ -41,12 +41,13 @@ export function AttachmentInput() {
   });
 
   return (
-    <div className="border border-black rounded p-2">
+    <div className="border border-white rounded p-2 text-white">
       {/* <p>Hola</p> */}
       <input {...getInputProps()} />
       <div className="w-full flex flex-col gap-2">
         <DynamicTextArea
-          className="w-full p-2 focus:outline-none"
+          rows={4}
+          className="w-full p-2 focus:outline-none bg-[inherit]"
           placeholder="hola"
           onPaste={(e) => {
             const { files: pastedFiles } = e.clipboardData;
@@ -81,7 +82,7 @@ export function AttachmentInput() {
           </div>
         )}
       </div>
-      <div {...getRootProps()} className="border border-black rounded w-fit">
+      <div {...getRootProps()} className="border rounded w-fit">
         <button
           type="button"
           onClick={open}

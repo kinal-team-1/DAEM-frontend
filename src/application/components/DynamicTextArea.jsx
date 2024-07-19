@@ -28,7 +28,7 @@ export function DynamicTextArea(props) {
       <textarea
         {...props}
         ref={textareaRef}
-        rows={1}
+        // rows={1}
         value={value}
         onChange={handleChange}
         className={`m-0 w-full max-h-[100px] overflow-y-hidden resize-none ${props.className}`}
@@ -43,4 +43,6 @@ export function DynamicTextArea(props) {
 DynamicTextArea.propTypes = {
   // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  rows: PropTypes.number,
 };
