@@ -10,6 +10,7 @@ import { validateToken } from "../application/actions/GET/validate-token";
 import { PrivateUserRoute } from "./validations/PrivateUserRoute";
 import { Layout } from "../application/client-module/pages/Layout";
 import { userRoutes } from "./user-routes";
+import { LocaleHandler } from "./validations/LocaleHandler";
 
 export const router = createBrowserRouter([
   {
@@ -42,23 +43,29 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <PrivateUserRoute />,
+            element: <LocaleHandler />,
             children: [
               {
                 path: "",
-                element: <Layout />,
-                children: [...userRoutes],
+                element: <PrivateUserRoute />,
+                children: [
+                  {
+                    path: "",
+                    element: <Layout />,
+                    children: [...userRoutes],
+                  },
+                ],
+              },
+              ...adminRoutes,
+              {
+                path: "signup",
+                element: <Signup />,
+              },
+              {
+                path: "login",
+                element: <Login />,
               },
             ],
-          },
-          ...adminRoutes,
-          {
-            path: "signup",
-            element: <Signup />,
-          },
-          {
-            path: "login",
-            element: <Login />,
           },
         ],
       },
