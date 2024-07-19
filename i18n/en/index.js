@@ -6,6 +6,7 @@
 
 import { login } from "./client/login";
 import { signup } from "./client/signup";
+import { publish } from "./client/publish";
 
 /** @satisfies { BaseTranslation } */
 const en = {
@@ -13,6 +14,7 @@ const en = {
   PAGES: {
     LOGIN: login,
     SIGNUP: signup,
+    PUBLISH: publish,
   },
 };
 
