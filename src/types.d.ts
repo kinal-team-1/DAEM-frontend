@@ -16,3 +16,8 @@ export type PublicCase = {
   filepaths: string[];
   submitter: string;
 } & Location;
+
+declare module "*.png";
+declare module "*.svg";
+declare module "*.jpeg";
+declare module "*.jpg";

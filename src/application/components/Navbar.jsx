@@ -4,7 +4,7 @@ import { SOPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
 import guatemalaShield from "../../assets/escudo-guatemala.png";
 
-export function TobBar() {
+export function Navbar() {
   return (
     <div className="flex py-2 px-3 gap-2 justify-between items-center bg-[#1b1a1a] text-white z-10">
       <div className="flex gap-3">

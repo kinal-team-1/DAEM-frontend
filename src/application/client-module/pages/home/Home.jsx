@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Map } from "../../components/Map";
-import { FileDrop } from "../../components/FileDrop";
-import { AttachmentInput } from "../../components/AttachmentInput";
-import { TobBar } from "../../components/TopBar";
+import { Map } from "../../../components/Map.jsx";
+import { FileDrop } from "../../../components/FileDrop.jsx";
+import { AttachmentInput } from "../../../components/AttachmentInput.jsx";
+import { Navbar } from "../../../components/Navbar.jsx";
 
 export function Home() {
   const [coordinates, setCoordinates] = useState(["14.6464213", "-87.0192"]);
@@ -27,7 +27,7 @@ export function Home() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <TobBar />
+      <Navbar />
       <h1>Home</h1>
       <p>Some content</p>
       <div className="flex gap-3">

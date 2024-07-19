@@ -3,8 +3,21 @@ import { useCallback, useState } from "react";
 import { faClose, faFileUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 import { uploadFile } from "../actions/POST/upload-file";
 import { removeStaleFile } from "../actions/DELETE/remove-stale-file";
+
+/**
+ * @typedef {Object} FileDropProps
+ * @property {string} className
+ * @property {(file: File) => void} onFileAdded
+ * @property {File[]} files
+ */
+
+/**
+ * @type React.FC<FileDropProps>
+ * @returns {React.ReactElement}
+ */
 
 export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
   const [files, setFiles] = useState(filesLoaded);
@@ -106,3 +119,11 @@ export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
     </div>
   );
 }
+
+FileDrop.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  className: PropTypes.string,
+  onFileAdded: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  files: PropTypes.arrayOf(PropTypes.shape({})),
+};

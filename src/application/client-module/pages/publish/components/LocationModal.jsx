@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import { Map } from "../../../components/Map";
+import { Map } from "../../../../components/Map.jsx";
 
 /**
  * @typedef {Object} LocationModalProps
  * @property {(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void} outsideClick
- * @property {(location: import("../../../../types").Location) => void} onLocationSelect
+ * @property {(location: import("../../../../../types.js").Location) => void} onLocationSelect
  * @property {(event: React.MouseEvent<HTMLButtonElement>) => void} onLocationCancel
- * @property {import("../../../../types").Location} location
+ * @property {import("../../../../../types.js").Location} location
  */
 
 /**

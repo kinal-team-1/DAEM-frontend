@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { TobBar } from "../components/TopBar";
+import { Navbar } from "../../components/Navbar.jsx";
 
 export function Layout() {
   return (
@@ -12,7 +12,7 @@ export function Layout() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <TobBar />
+      <Navbar />
       <div className="overflow-hidden overflow-y-scroll grow">
         <Outlet />
       </div>

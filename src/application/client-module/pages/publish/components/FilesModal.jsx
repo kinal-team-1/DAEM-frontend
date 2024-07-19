@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { FileDrop } from "../../../components/FileDrop";
-import { removeStaleFile } from "../../../actions/DELETE/remove-stale-file";
+import { FileDrop } from "../../../../components/FileDrop.jsx";
+import { removeStaleFile } from "../../../../actions/DELETE/remove-stale-file.js";
 
 export function FilesModal({
   outsideClick,

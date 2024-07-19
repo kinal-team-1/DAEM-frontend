@@ -9,9 +9,9 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-import { LocationModal } from "./LocationModal";
-import { FilesModal } from "./FilesModal";
-import { createPublicCase } from "../../../actions/POST/create-case";
+import { LocationModal } from "./LocationModal.jsx";
+import { FilesModal } from "./FilesModal.jsx";
+import { createPublicCase } from "../../../../actions/POST/create-case.js";
 
 /**
  * @typedef {Object} CaseFormProps
