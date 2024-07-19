@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signup } from "../../../../actions/POST/signup";
 import { login } from "../../../../actions/POST/login";
 import { useAuthService } from "../../../../../services/auth";
+import { useLocaleService } from "../../../../../services/locale";
 
 export function SignupForm() {
+  const { LL } = useLocaleService();
   const { locale } = useParams();
   const navigate = useNavigate();
   const { setUser } = useAuthService();
@@ -53,7 +55,7 @@ export function SignupForm() {
       <div className="size-[400px] bg-black/70 md:bg-[transparent] max-w-[90vw] p-7 text-white flex flex-col gap-10 text-xl justify-center [&_input]:placeholder:text-white/80">
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="Nombre"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.NAME()}
           type="text"
           value={form.name}
           onChange={(e) => {
@@ -62,7 +64,7 @@ export function SignupForm() {
         />
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="Apellido"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.LASTNAME()}
           type="text"
           value={form.lastname}
           onChange={(e) => {
@@ -71,7 +73,7 @@ export function SignupForm() {
         />
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="DPI"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.DPI()}
           type="text"
           value={form.DPI}
           onChange={(e) => {
@@ -80,7 +82,7 @@ export function SignupForm() {
         />
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="telefono"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.PHONE_NUMBER()}
           type="text"
           value={form.phone_number}
           onChange={(e) => {
@@ -92,7 +94,7 @@ export function SignupForm() {
       <div className="size-[400px] bg-black/70 md:bg-[transparent] max-w-[90vw] p-7 text-white flex flex-col gap-10 text-xl justify-center [&_input]:placeholder:text-white/80">
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="Email"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.EMAIL()}
           type="text"
           value={form.email}
           onChange={(e) => {
@@ -101,7 +103,7 @@ export function SignupForm() {
         />
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="Password"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.PASSWORD()}
           type="password"
           value={form.password}
           onChange={(e) => {
@@ -110,7 +112,7 @@ export function SignupForm() {
         />
         <input
           className="border-b border-white bg-[transparent] outline-none"
-          placeholder="Confirmar Password"
+          placeholder={LL?.PAGES.SIGNUP.PLACEHOLDERS.PASSWORD_CONFIRMATION()}
           type="password"
           value={form.confirmPassword}
           onChange={(e) => {
@@ -121,14 +123,18 @@ export function SignupForm() {
           type="submit"
           className="py-4 px-3 bg-black rounded-xl text-white flex justify-center items-center gap-2"
         >
-          {mutationSignup.isIdle && <span>Crear cuenta</span>}
+          {mutationSignup.isIdle && (
+            <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT()}</span>
+          )}
           {mutationSignup.isPending && (
             <>
-              <span>Creando cuenta</span>
+              <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_LOADING()}</span>
               <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
             </>
           )}
-          {mutationSignup.isError && <span>Ups! algo malo paso</span>}
+          {mutationSignup.isError && (
+            <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_ERROR()}</span>
+          )}
         </button>
       </div>
     </form>

@@ -5,12 +5,14 @@
  */
 
 import { login } from "./client/login";
+import { signup } from "./client/signup.js";
 
 /** @satisfies { Translation } */
 const es = {
   // TODO: your translations go here
   PAGES: {
     LOGIN: login,
+    SIGNUP: signup,
   },
 };
 
