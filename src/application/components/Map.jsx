@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
-import { circle, map, marker, tileLayer } from "leaflet";
+import { circle, Icon, map, marker, tileLayer } from "leaflet";
 import PropTypes from "prop-types";
 
 /**
@@ -48,6 +48,7 @@ function MapComponent({
     markerInstance.current?.remove();
     markerInstance.current = marker([lat, long], {
       draggable: true,
+      icon: new Icon.Default(),
     }).addTo(mapInstance.current);
     markerInstance.current.on("dragend", (event) => {
       onMarkerDrag(

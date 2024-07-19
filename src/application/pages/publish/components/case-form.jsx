@@ -3,7 +3,7 @@ import { faImages, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { LocationModal } from "./LocationModal";
-import { FilesModal } from "./FilesModal.jsx";
+import { FilesModal } from "./FilesModal";
 
 export function CaseForm({ className }) {
   const modalRef = /** @type {HTMLElement | null} */ useRef(null);
@@ -37,9 +37,6 @@ export function CaseForm({ className }) {
         <button
           onClick={() => {
             setIsLocationModalOpen(!isLocationModalOpen);
-            setTimeout(() => {
-              modalRef.current.removeAllListeners();
-            }, 0);
           }}
           type="button"
           className="grow rounded-xl py-4 px-5 bg-black text-white flex gap-2 justify-center items-center"
@@ -52,9 +49,6 @@ export function CaseForm({ className }) {
           className="grow rounded-xl py-4 px-5 bg-black text-white flex gap-2 justify-center items-center"
           onClick={() => {
             setIsFilesModalOpen(!isFilesModalOpen);
-            setTimeout(() => {
-              modalRef.current.removeAllListeners();
-            }, 0);
           }}
         >
           <FontAwesomeIcon icon={faImages} />
