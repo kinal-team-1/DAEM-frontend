@@ -7,12 +7,15 @@ export function PublicCaseCard({
   description,
   reported_at,
   attachment,
+  className,
 }) {
   const { locale } = useParams();
 
   return (
-    <div className="bg-black/20 rounded-lg shadow-lg p-4 flex gap-5 h-[180px] w-full">
-      <div className="border rounded h-full w-full shrink-0 max-w-[min(200px,50%)] bg-white ">
+    <div
+      className={`bg-black/20 rounded-lg shadow-lg p-4 flex gap-5 h-[180px] w-full ${className}`}
+    >
+      <div className="rounded h-full w-full shrink-0 max-w-[min(200px,50%)] bg-white ">
         <Image attachment={attachment} />
       </div>
       <div className="grow h-full flex flex-col gap-5">

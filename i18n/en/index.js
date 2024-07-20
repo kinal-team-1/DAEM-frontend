@@ -13,6 +13,21 @@ import { editProfile } from "./client/edit-profile";
 const en = {
   // TODO: your translations go here
   PAGES: {
+    SERVICE: {
+      NAME: "Name",
+      DESCRIPTION: "Description",
+      PRICE: "Price",
+    },
+    FAVORITE_ACCOUNT: {
+      ACCOUNT: "Account",
+      OWNER: "Owner",
+      ALIAS: "alias",
+    },
+    PUBLICATIONS: {
+      SUBMITTER: "submitter",
+      TITLE: "Title",
+      DESCRIPTION: "Description",
+    },
     LOGIN: login,
     SIGNUP: signup,
     PUBLISH: publish,

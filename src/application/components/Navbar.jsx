@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { DropDown } from "./DropDown";
 import { SUPPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
@@ -32,7 +32,13 @@ function TopBarButtons() {
   const currentPath = location.pathname;
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-center">
+      <Link
+        to={`/${locale}/publish`}
+        className="bg-black text-white rounded-full px-5 py-3 flex justify-center"
+      >
+        Presentar caso
+      </Link>
       <DropDown
         onChange={(lang, options) => {
           const lastRoute = currentPath.split("/").pop();

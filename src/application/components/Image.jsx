@@ -23,8 +23,6 @@ export function Image({ attachment }) {
     return <div className="bg-gray-400 w-full animate-pulse h-full" />;
   }
 
-  console.log({ images });
-
   return (
     <div className="flex w-full h-full relative overflow-hidden items-center">
       {images.map((img, i) => {
