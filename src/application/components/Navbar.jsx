@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { DropDown } from "./DropDown";
-import { SOPORTED_LANGUAGES } from "../../config";
+import { SUPPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
 import guatemalaShield from "../../assets/escudo-guatemala.png";
 
@@ -48,7 +48,7 @@ function TopBarButtons() {
           navigate(currentPath.replace(regex, `/${lang}/`));
         }}
         defaultOption={locale}
-        options={SOPORTED_LANGUAGES}
+        options={SUPPORTED_LANGUAGES}
       />
       <button
         type="button"

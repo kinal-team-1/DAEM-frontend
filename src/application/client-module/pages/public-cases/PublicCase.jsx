@@ -10,18 +10,20 @@ export function PublicCase() {
           alt="Background"
           className="absolute inset-0 object-cover w-full h-full"
         />
-        <div className="relative grid grid-cols-1 md:grid-cols-2 bg-black bg-opacity-60">
-          <div className="p-4 text-white h-full flex flex-col gap-3 justify-center px-5">
-            <h1 className="text-xl font-bold">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 bg-black bg-opacity-60">
+          <div className="p-4 text-white flex flex-col gap-3 justify-center px-5">
+            <h1 className="text-xl font-bold text-center lg:text-left">
               Ciudad de Guatemala, Guatemala
             </h1>
-            <p className="text-sm">07 / 05 / 2024 8:10 AM</p>
-            <p className="mt-2 text-sm">
+            <p className="text-sm text-center lg:text-left">
+              07 / 05 / 2024 8:10 AM
+            </p>
+            <p className="mt-2 text-sm text-justify">
               Lorem ipsum es el texto que se usa habitualmente en diseño gráfico
               en demostraciones de tipografías o de borradores de diseño para
               probar el diseño visual antes de insertar el texto final.
             </p>
-            <p>
+            <p className="text-justify">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Assumenda cum cumque debitis ea et, eveniet itaque laudantium
               tempora vel. Accusamus, adipisci aliquid aspernatur eligendi ipsa,
@@ -29,7 +31,7 @@ export function PublicCase() {
               alias autem, deserunt dolorem ea, eos error facilis, fuga quasi
               quis reprehenderit repudiandae sit voluptate voluptates?
             </p>
-            <p>
+            <p className="text-justify">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
               accusamus adipisci aspernatur atque consectetur cum dolor ducimus
               earum eligendi fugiat fugit id impedit maxime modi, molestiae
@@ -38,7 +40,7 @@ export function PublicCase() {
               consequuntur dolores, fugit id ipsa minus neque praesentium
               tempore?
             </p>
-            <p>
+            <p className="text-justify">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum
               itaque nisi rem sit vero vitae. Accusantium adipisci aliquid
               dolorem enim impedit laborum, molestias nulla numquam qui quo,
@@ -46,7 +48,9 @@ export function PublicCase() {
             </p>
           </div>
           <div className="p-6 flex flex-col space-y-4">
-            <h2 className="text-2xl font-bold mb-4">Caso 1237-0654</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center lg:text-left">
+              Caso 1237-0654
+            </h2>
             <textarea
               className="w-full h-32 p-2 border rounded text-black"
               placeholder="Descripción..."
@@ -58,7 +62,7 @@ export function PublicCase() {
               Aportar
             </button>
             <AttachmentInput />
-            <div className="flex space-x-2">
+            <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2">
               <div className="flex-1 bg-gray-800 p-2 rounded">
                 <img
                   src="/path/to/your/image1.png"

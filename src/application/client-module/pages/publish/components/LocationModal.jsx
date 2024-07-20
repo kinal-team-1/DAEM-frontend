@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import { Map } from "../../../../components/Map.jsx";
+import { useLocaleService } from "../../../../../services/locale.jsx";
 
 /**
  * @typedef {Object} LocationModalProps
@@ -24,7 +25,7 @@ export function LocationModal({
   onLocationCancel,
   location = { latitude: 0, longitude: 0, address: "", city: "", country: "" },
 }) {
-  // const [coordinates, setCoordinates] = useState([0, 0]);
+  const { LL } = useLocaleService();
   const [coordinates, setCoordinates] = useState([
     location.latitude.toString(),
     location.longitude.toString(),
@@ -115,7 +116,7 @@ export function LocationModal({
           <input
             type="text"
             className="w-full text-white px-2 py-2 rounded border bg-[transparent]"
-            placeholder="address"
+            placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.ADDRESS()}
             value={form.address}
             onChange={(e) => {
               setForm({ ...form, address: e.target.value });
@@ -125,7 +126,7 @@ export function LocationModal({
             <input
               type="text"
               className="shrink grow px-2 w-1 py-2 rounded border bg-[transparent]"
-              placeholder="city"
+              placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.CITY()}
               value={form.city}
               onChange={(e) => {
                 setForm({ ...form, city: e.target.value });
@@ -134,7 +135,7 @@ export function LocationModal({
             <input
               type="text"
               className="shrink grow px-2 w-1 py-2 rounded border bg-[transparent]"
-              placeholder="country"
+              placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.COUNTRY()}
               value={form.country}
               onChange={(e) => {
                 setForm({ ...form, country: e.target.value });
@@ -143,7 +144,7 @@ export function LocationModal({
           </div>
           <div className="flex gap-2 w-full text-white pt-5 pb-2">
             <input
-              placeholder="Latitude"
+              placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.LATITUDE()}
               className="shrink grow px-2 w-1 py-2 rounded border bg-[transparent]"
               type="text"
               value={typedLat}
@@ -152,7 +153,7 @@ export function LocationModal({
               }}
             />
             <input
-              placeholder="Longitude"
+              placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.LONGITUDE()}
               className="shrink grow px-2 w-1 py-2 rounded border bg-[transparent]"
               type="text"
               value={typedLong}
@@ -174,7 +175,7 @@ export function LocationModal({
             type="submit"
             className="px-3 py-3 flex justify-center items-center bg-green-400 w-full rounded-xl"
           >
-            Accept
+            {LL.PAGES.PUBLISH.BUTTONS.SUBMIT_LOCATION()}
           </button>
         </div>
       </form>

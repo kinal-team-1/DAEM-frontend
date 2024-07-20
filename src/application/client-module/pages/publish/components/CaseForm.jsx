@@ -9,9 +9,11 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-import { LocationModal } from "./LocationModal.jsx";
-import { FilesModal } from "./FilesModal.jsx";
-import { createPublicCase } from "../../../../actions/POST/create-case.js";
+import { LocationModal } from "./LocationModal";
+import { FilesModal } from "./FilesModal";
+import { createPublicCase } from "../../../../actions/POST/create-case";
+import { useAuthService } from "../../../../../services/auth";
+import { useLocaleService } from "../../../../../services/locale";
 
 /**
  * @typedef {Object} CaseFormProps
@@ -23,13 +25,14 @@ import { createPublicCase } from "../../../../actions/POST/create-case.js";
  * @returns {React.ReactElement}
  */
 export function CaseForm({ className }) {
+  const { LL } = useLocaleService();
+  const { user } = useAuthService();
   const modalRef = /** @type {HTMLElement | null} */ useRef(null);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFilesModalOpen, setIsFilesModalOpen] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
-    submitter: "",
   });
   const [location, setLocation] = useState(null);
   const [files, setFiles] = useState([]);
@@ -41,7 +44,7 @@ export function CaseForm({ className }) {
   // assign the modal element to the ref only once
   useEffect(() => {
     if (!modalRef.current) {
-      modalRef.current = document.getElementById("custom-modal");
+      modalRef.current = document.getElementById("modal");
     }
   }, [location === null]);
 
@@ -52,7 +55,6 @@ export function CaseForm({ className }) {
     setForm({
       title: "",
       description: "",
-      submitter: "",
     });
   }, [mutation.isSuccess]);
 
@@ -67,8 +69,9 @@ export function CaseForm({ className }) {
             ...form,
             ...location,
             filepaths: files.map((f) => f.path),
+            // eslint-disable-next-line no-underscore-dangle
+            submitter: user._id,
           };
-          console.log({ payload });
           mutation.mutate(payload);
 
           setTimeout(() => {
@@ -79,7 +82,7 @@ export function CaseForm({ className }) {
       >
         <input
           type="text"
-          placeholder="Titulo..."
+          placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.TITLE()}
           className="px-4 py-2 rounded bg-[transparent] border boder-white outline-none text-white placeholder:text-white"
           value={form.title}
           onChange={(e) => {
@@ -89,7 +92,7 @@ export function CaseForm({ className }) {
         {/* <AttachmentInput /> */}
         <textarea
           rows={6}
-          placeholder="Descripcion..."
+          placeholder={LL?.PAGES.PUBLISH.PLACEHOLDERS.DESCRIPTION()}
           className="text-white bg-[transparent] border rounded px-4 py-2 placeholder:text-white outline-none"
           value={form.description}
           onChange={(e) => {
@@ -105,7 +108,7 @@ export function CaseForm({ className }) {
             className="grow rounded-xl py-4 px-5 bg-black text-white flex gap-2 justify-center items-center relative"
           >
             <FontAwesomeIcon icon={faLocationDot} />
-            <span>Location</span>
+            <span>{LL?.PAGES.PUBLISH.BUTTONS.LOCATION()}</span>
           </button>
           <button
             type="button"
@@ -115,7 +118,7 @@ export function CaseForm({ className }) {
             }}
           >
             <FontAwesomeIcon icon={faImages} />
-            <span>Files</span>
+            <span>{LL?.PAGES.PUBLISH.BUTTONS.FILES()}</span>
             {files.length > 0 && (
               <span className="absolute size-[30px] bg-red-500 -top-3 -right-3 rounded-full flex justify-center items-center">
                 {files.length}
@@ -127,17 +130,19 @@ export function CaseForm({ className }) {
           type="submit"
           className="text-2xl rounded-xl py-5 px-5 bg-black text-white flex justify-center items-center gap-2"
         >
-          {mutation.isIdle && <span>Presentar Caso</span>}
+          {mutation.isIdle && <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT()}</span>}
           {mutation.isPending && (
             <>
-              <span>Enviando...</span>
+              <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT_LOADING()}</span>
               <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
             </>
           )}
-          {mutation.isError && <span>Error</span>}
+          {mutation.isError && (
+            <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT_ERROR()}</span>
+          )}
           {mutation.isSuccess && (
             <>
-              <span>Caso creado</span>
+              <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT_SUCCESS()}</span>
               <FontAwesomeIcon icon={faCheck} />
             </>
           )}
