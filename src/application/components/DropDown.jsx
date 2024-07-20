@@ -59,7 +59,7 @@ export function DropDown({ defaultOption, options, onChange }) {
   return (
     <div
       role="presentation"
-      className="text-white relative rounded border flex flex-col justify-center size-[calc(100px/3)]"
+      className="text-white relative rounded bg-black font-bold flex flex-col justify-center size-[calc(120px/3)]"
       onKeyDown={handleKeyDown}
     >
       <button
@@ -74,7 +74,7 @@ export function DropDown({ defaultOption, options, onChange }) {
         <span className="text-start">{optionSelected}</span>
       </button>
       {isOpen && (
-        <div className="top-[105%] bg-silver-300 absolute flex flex-col w-full bg-white dark:bg-vulcan-900 z-10 rounded overflow-none">
+        <div className="top-[105%] absolute flex flex-col w-full bg-white dark:bg-vulcan-900 z-10 rounded overflow-none">
           {options
             .filter((option) => option !== optionSelected)
             .map((option, i, arr) =>
@@ -89,7 +89,7 @@ export function DropDown({ defaultOption, options, onChange }) {
                   }}
                   data-islast={i === arr.length - 1 || null}
                   type="button"
-                  className="w-full size-[calc(100px/3)] hover:dark:bg-vulcan-950 focus:dark:bg-vulcan-950 outline-none text-start data-[islast]:rounded-b flex justify-center items-center"
+                  className="w-full size-[calc(120px/3)] hover:dark:bg-vulcan-950 focus:dark:bg-vulcan-950 outline-none text-start data-[islast]:rounded-b flex justify-center items-center"
                 >
                   {option}
                 </button>
