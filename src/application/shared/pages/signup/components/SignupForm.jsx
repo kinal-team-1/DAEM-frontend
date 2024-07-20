@@ -37,6 +37,9 @@ export function SignupForm() {
     onSuccess: () => {
       mutationLogin.mutate(form);
     },
+    onSettled: () => {
+      setTimeout(() => mutationLogin.reset(), 3000);
+    },
   });
 
   return (
@@ -46,9 +49,7 @@ export function SignupForm() {
         if (!mutationSignup.isIdle) return;
 
         if (form.password !== form.confirmPassword) return;
-        mutationSignup.mutateAsync(form).finally(() => {
-          setTimeout(() => mutationSignup.reset(), 3000);
-        });
+        mutationSignup.mutate(form);
       }}
       className="md:bg-black/70 flex flex-col gap-2 md:flex-row md:gap-0 h-fit"
     >

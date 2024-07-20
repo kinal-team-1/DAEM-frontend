@@ -39,6 +39,11 @@ export function CaseForm({ className }) {
 
   const mutation = useMutation({
     mutationFn: createPublicCase,
+    onSettled: () => {
+      setTimeout(() => {
+        mutation.reset();
+      }, 3000);
+    },
   });
 
   // assign the modal element to the ref only once
@@ -56,6 +61,8 @@ export function CaseForm({ className }) {
       title: "",
       description: "",
     });
+    setLocation(null);
+    setFiles([]);
   }, [mutation.isSuccess]);
 
   return (
@@ -73,10 +80,6 @@ export function CaseForm({ className }) {
             submitter: user._id,
           };
           mutation.mutate(payload);
-
-          setTimeout(() => {
-            mutation.reset();
-          }, 3000);
         }}
         className={`p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 rounded-xl min-w-[400px] ${className}`}
       >
