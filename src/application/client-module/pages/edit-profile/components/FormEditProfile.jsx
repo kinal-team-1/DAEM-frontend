@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -31,10 +31,12 @@ export function FormEditProfile({ searchParams }) {
       setUser(newUser);
       navigate(`./?${removeQueryParams(searchParams, "isEdit")}`);
     },
-    onSettled: () => {
-      setTimeout(() => editProfileMutation.reset(), 3000);
-    },
   });
+
+  useEffect(() => {
+    if (!editProfileMutation.isError) return;
+    setTimeout(() => editProfileMutation.reset(), 3000);
+  }, [editProfileMutation.isError]);
 
   return (
     <form

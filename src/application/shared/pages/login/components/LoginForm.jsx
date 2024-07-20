@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -25,10 +25,13 @@ export function LoginForm() {
       setUser(user);
       navigate(`/${locale}/publish`);
     },
-    onSettled: () => {
-      setTimeout(() => mutationLogin.reset(), 3000);
-    },
   });
+
+  useEffect(() => {
+    if (!mutationLogin.isError) return;
+
+    setTimeout(() => mutationLogin.reset(), 3000);
+  }, [mutationLogin.isError]);
 
   return (
     <form

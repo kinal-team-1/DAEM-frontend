@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -37,10 +37,13 @@ export function SignupForm() {
     onSuccess: () => {
       mutationLogin.mutate(form);
     },
-    onSettled: () => {
-      setTimeout(() => mutationLogin.reset(), 3000);
-    },
   });
+
+  useEffect(() => {
+    if (!mutationSignup.isError) return;
+
+    setTimeout(() => mutationSignup.reset(), 3000);
+  }, [mutationSignup.isError]);
 
   return (
     <form

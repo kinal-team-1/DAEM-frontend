@@ -39,12 +39,15 @@ export function CaseForm({ className }) {
 
   const mutation = useMutation({
     mutationFn: createPublicCase,
-    onSettled: () => {
-      setTimeout(() => {
-        mutation.reset();
-      }, 3000);
-    },
   });
+
+  useEffect(() => {
+    if (!mutation.isSuccess && !mutation.isError) return;
+
+    setTimeout(() => {
+      mutation.reset();
+    }, 3000);
+  }, [mutation.isSuccess, mutation.isError]);
 
   // assign the modal element to the ref only once
   useEffect(() => {
