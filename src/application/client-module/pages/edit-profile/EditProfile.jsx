@@ -1,6 +1,9 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { ListPublicCases } from "./components/ListCases.jsx";
-import { ListContributions } from "./components/ListContributions.jsx";
+import { ListPublicCases } from "./components/ListCases";
+import { ListContributions } from "./components/ListContributions";
+import { FormEditProfile } from "./components/FormEditProfile";
+import { useAuthService } from "../../../../services/auth";
+import { useLocaleService } from "../../../../services/locale";
 
 const removeQueryParams = (searchParams, param) => {
   const newSearchParams = new URLSearchParams(searchParams);
@@ -15,92 +18,66 @@ const addQueryParams = (searchParams, param, value) => {
 };
 
 export function EditProfile() {
-  const DPI = "1234567890123";
   const [searchParams] = useSearchParams();
+  const { LL } = useLocaleService();
   const tab = searchParams.get("tab");
   const isCasesTab = tab === "cases";
   const isContributionsTab = tab === "contributions";
   const isEdit = searchParams.has("isEdit");
-
+  const { user } = useAuthService();
   return (
-    <div className="flex h-full text-white">
-      <div className="bg-black/30 grow h-full max-w-[350px] flex flex-col gap-2 px-10">
+    <div className="flex flex-col min-[900px]:flex-row h-full text-white">
+      <div className="bg-black/30 grow h-full min-[900px]:w-[350px] min-[900px]:grow-0 shrink-0 flex flex-col items-center py-5 gap-2 px-10">
         <div className="flex justify-center">
-          <div className="size-[200px] rounded-full bg-gray-400" />
+          <div className="min-[900px]:size-[150px] size-[200px] rounded-full bg-gray-400" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold">Juan Luis</h2>
+          <h2 className="text-2xl font-bold flex gap-2">
+            <span>{user.name}</span>
+            <span>{user.lastname}</span>
+          </h2>
           <h6 className="text-sm flex gap-1">
-            {DPI.split("").map((char) => (
+            {user.DPI.split("").map((char) => (
               <span>{char}</span>
             ))}
           </h6>
         </div>
         {!isEdit && (
           <>
-            <p>admin@email.com</p>
-            <p>502+ 12345678 </p>
+            <p>{user.email}</p>
+            <p>502+ {user.phone_number} </p>
             <Link
               to={`./?${isEdit ? removeQueryParams(searchParams, "isEdit") : addQueryParams(searchParams, "isEdit")}`}
               className="px-10 py-2 bg-black rounded-lg w-fit"
             >
-              Editar
+              {LL?.PAGES.EDIT_PROFILE.BUTTONS.EDIT_PROFILE()}
             </Link>
           </>
         )}
-        {isEdit && (
-          <div className="flex flex-col gap-5 [&_input]:border-2">
-            <input
-              placeholder="hola"
-              type="text"
-              className="border p-2 rounded-lg bg-[transparent] outline-none"
-            />
-            <input
-              placeholder="hola"
-              type="text"
-              className="border p-2 rounded-lg bg-[transparent] outline-none"
-            />
-            <input
-              placeholder="hola"
-              type="text"
-              className="border p-2 rounded-lg bg-[transparent] outline-none"
-            />
-            <div className="flex gap-2">
-              <button className="px-10 py-2 bg-white text-black rounded-lg grow">
-                Save
-              </button>
-              <Link
-                to={`./?${removeQueryParams(searchParams, "isEdit")}`}
-                className="px-10 py-2 bg-black rounded-lg grow"
-              >
-                cancelar
-              </Link>
-            </div>
-          </div>
-        )}
+        {isEdit && <FormEditProfile searchParams={searchParams} />}
       </div>
-      <div className="grow h-full flex flex-col">
-        <div className="flex">
-          <div className="grow">
+      <div className="grow h-full shrink-0 min-[900px]:shrink flex flex-col">
+        <div className="grid grid-cols-2">
+          <div className="col-span-1">
             <Link
               to={`./?${addQueryParams(searchParams, "tab", "cases")}`}
               data-is-selected={isCasesTab || null}
               className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
             >
-              Casos
+              {LL?.PAGES.EDIT_PROFILE.TABS.CASES.TITLE()}
             </Link>
           </div>
-          <div className="grow">
+          <div className="col-span-1">
             <Link
               to={`./?${addQueryParams(searchParams, "tab", "contributions")}`}
               data-is-selected={isContributionsTab || null}
               className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
             >
-              Contribuciones
+              {LL?.PAGES.EDIT_PROFILE.TABS.CONTRIBUTIONS.TITLE()}
             </Link>
           </div>
         </div>
-        <div className="px-10 py-5">
+        <div className="px-3 min-w-[900px]:px-10 py-5 grow">
           {isCasesTab && <ListPublicCases />}
           {isContributionsTab && <ListContributions />}
         </div>

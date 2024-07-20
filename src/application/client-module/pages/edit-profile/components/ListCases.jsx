@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuthService } from "../../../../../services/auth";
 import { getPublicCasesByUserId } from "../../../../actions/GET/get-public-cases-by-user-id";
-import { PublicCaseCard } from "./PublicCaseCard.jsx";
+import { PublicCaseCard } from "./PublicCaseCard";
+import { useLocaleService } from "../../../../../services/locale";
 
 export function ListPublicCases() {
   const { user } = useAuthService();
+  const { LL } = useLocaleService();
 
   const {
     data: [publicCases, message] = [],
@@ -19,7 +21,9 @@ export function ListPublicCases() {
   if (isLoading) {
     return (
       // spiner
-      <div>Loading ...</div>
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="border-b-green-400 rounded-full size-[80px] border-vulcan-500 border-8 animate-spin" />
+      </div>
     );
   }
 
@@ -28,9 +32,11 @@ export function ListPublicCases() {
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <h2 className="text-white text-2xl">Mis contribuciones</h2>
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 items-center">
+      <h2 className="text-white text-2xl">
+        {LL?.PAGES.EDIT_PROFILE.TABS.CASES.SUBTITLE()}
+      </h2>
+      <div className="flex flex-col gap-3 max-w-[700px] shrink">
         {publicCases.map((pubCase) => (
           <PublicCaseCard
             key={pubCase._id}
@@ -41,6 +47,11 @@ export function ListPublicCases() {
             attachment={pubCase.attachment}
           />
         ))}
+        {publicCases.length === 0 && (
+          <div className="text-white py-10">
+            {LL?.PAGES.EDIT_PROFILE.TABS.CASES.NO_CONTRIBUTIONS_MESSAGE()}
+          </div>
+        )}
       </div>
     </div>
   );
