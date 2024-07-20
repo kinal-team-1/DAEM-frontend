@@ -2,8 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { FileDrop } from "../../../../components/FileDrop.jsx";
-import { removeStaleFile } from "../../../../actions/DELETE/remove-stale-file.js";
+import { FileDrop } from "../../../../components/FileDrop";
+import { removeStaleFile } from "../../../../actions/DELETE/remove-stale-file";
+import { useLocaleService } from "../../../../../services/locale";
 
 export function FilesModal({
   outsideClick,
@@ -11,6 +12,7 @@ export function FilesModal({
   onCancel,
   files: filesLoaded,
 }) {
+  const { LL } = useLocaleService();
   const [files, setFiles] = useState(filesLoaded);
   const newFiles = useRef([]);
   const removeMutation = useMutation({
@@ -75,7 +77,7 @@ export function FilesModal({
             type="submit"
             className="bg-green-400 px-4 py-3 rounded w-full"
           >
-            <span>Submit</span>
+            <span>{LL?.PAGES.PUBLISH.BUTTONS.UPLOAD_RESOURCES()}</span>
           </button>
         </div>
       </form>

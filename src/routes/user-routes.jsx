@@ -1,6 +1,7 @@
 import { Home } from "../application/client-module/pages/home/Home";
 import { Publish } from "../application/client-module/pages/publish/Publish";
 import { PublicCase } from "../application/client-module/public-case/public-case";
+import { EditProfile } from "../application/client-module/pages/edit-profile/EditProfile";
 
 export const userRoutes = /** @type import("react-router-dom").RouteObject */ [
   {
@@ -14,5 +15,9 @@ export const userRoutes = /** @type import("react-router-dom").RouteObject */ [
   {
     path: "public-case",
     element: <PublicCase />,
+  },
+  {
+    path: "edit-profile",
+    element: <EditProfile />,
   },
 ];

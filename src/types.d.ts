@@ -17,6 +17,21 @@ export type PublicCase = {
   submitter: string;
 } & Location;
 
+export type User = {
+  email: string;
+  password: string;
+  name: string;
+  lastname: string;
+  DPI: string;
+  phone_number: string;
+  _id?: string;
+}
+
+export type Credentials = {
+  email: string;
+  password: string;
+}
+
 declare module "*.png";
 declare module "*.svg";
 declare module "*.jpeg";
