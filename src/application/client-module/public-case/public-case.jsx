@@ -1,63 +1,44 @@
-import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getPublicCase } from "../../actions/GET/getPublic-case";
-import { PublicCaseCard } from "./components/public-caseCard";
+import { getPublicCase } from "../../actions/GET/get-public-case";
+import { PublicCaseCard } from "../pages/edit-profile/components/PublicCaseCard";
 
 export function PublicCase() {
-  const { locale } = useParams();
-  const [params] = useSearchParams();
-  const { data = [], isLoading } = useQuery({
-    queryKey: ["public-case", { locale, params }],
+  const {
+    data: [publicCases, message] = [],
+    isLoading,
+    error,
+  } = useQuery({
+    // eslint-disable-next-line no-underscore-dangle
+    queryKey: ["public-case"],
     queryFn: getPublicCase,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-
-  console.log("Data obtenida:", data);
-
-  // Verifica que data sea un array y tenga al menos un elemento, si no, retorna null
-  if (!Array.isArray(data) || data.length === 0) {
-    console.error("Error: Data is not an array or is empty");
-    return <div>Error: Data is not an array or is empty</div>;
+  if (isLoading) {
+    return (
+      // spiner
+      <div>Loading ...</div>
+    );
   }
 
-  // Asumiendo que data es un array, el primer elemento es publicCase
-  const publicCase = data[0];
-
-  console.log("publicCase:", publicCase);
-
-  // Verifica que publicCase sea un array
-  if (!Array.isArray(publicCase)) {
-    console.error("Error: publicCase is not an array");
-    return <div>Error: publicCase is not an array</div>;
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
-
+  console.log({ publicCases });
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex justify-end">
-        <Link
-          className="bg-primary-400 rounded py-2 px-4 text-white"
-          to="./create"
-        >
-          Crear
-        </Link>
-      </div>
-      <div className="grow content-start overflow-y-scroll gap-5 md:px-4 grid grid-cols-[repeat(auto-fill,minmax(330px,1fr))]">
-        {publicCase.map((publicCases) => (
+    <div className="flex flex-col gap-3 items-center">
+      <h2 className="text-white text-2xl">Mis contribuciones</h2>
+      <div className="flex flex-col gap-3 max-w-[2000px]">
+        {publicCases.map((pubCase) => (
           <PublicCaseCard
-            submitter={publicCases.submitter}
-            title={publicCases.title}
-            description={publicCases.description}
-            key={publicCases._id}
-            id={publicCases._id}
+            key={pubCase._id}
+            title={pubCase.title}
+            description={pubCase.description}
+            reported_at={pubCase.reported_at}
+            id={pubCase._id}
+            attachment={pubCase.attachment}
           />
         ))}
       </div>
-      {hiddenElements.size === publicCase.length && (
-        <div className="flex text-3xl justify-center items-center h-full">
-          <span>No elements found</span>
-        </div>
-      )}
     </div>
   );
 }

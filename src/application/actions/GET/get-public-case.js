@@ -11,7 +11,7 @@ export const getPublicCase = () => {
   return client
     .get("/public-case")
     .then(async (res) => {
-      return [res.data, res.data.message, res.status];
+      return [res.data.data, res.data.message, res.status];
     })
     .catch(handleGenericError);
 };

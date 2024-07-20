@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { ListPublicCases } from "./components/ListCases.jsx";
-import { ListContributions } from "./components/ListContributions.jsx";
+import { ListPublicCases } from "./components/ListCases";
+import { ListContributions } from "./components/ListContributions";
 
 const removeQueryParams = (searchParams, param) => {
   const newSearchParams = new URLSearchParams(searchParams);
