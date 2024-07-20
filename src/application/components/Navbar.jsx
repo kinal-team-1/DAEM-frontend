@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { DropDown } from "./DropDown";
 import { SUPPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
@@ -28,7 +28,8 @@ export function Navbar() {
 function TopBarButtons() {
   const { locale } = useParams();
   const navigate = useNavigate();
-  const currentPath = window.location.pathname;
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   return (
     <div className="flex gap-2">
@@ -40,12 +41,13 @@ function TopBarButtons() {
             const pathRoutes = currentPath.split("/");
             pathRoutes.pop();
             pathRoutes.push(lang);
-            navigate(pathRoutes.join("/"));
+            navigate(pathRoutes.join("/") + location.search);
             return;
           }
 
+          console.log({ options, currentPath });
           const regex = new RegExp(`/(${options.join("|")})/`, "g");
-          navigate(currentPath.replace(regex, `/${lang}/`));
+          navigate(currentPath.replace(regex, `/${lang}/`) + location.search);
         }}
         defaultOption={locale}
         options={SUPPORTED_LANGUAGES}

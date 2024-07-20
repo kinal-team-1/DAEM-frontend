@@ -6,6 +6,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { getAttachments } from "../actions/GET/get-attachments";
 
 export function Image({ attachment }) {
@@ -13,16 +14,13 @@ export function Image({ attachment }) {
   const [areImagesLoaded, setAreImagesLoaded] = useState(false);
   const [current, setCurrent] = useState(0);
   const { data: [images] = [], isLoading } = useQuery({
-    // eslint-disable-next-line react/prop-types
+    // eslint-disable-next-line react/prop-types,no-underscore-dangle
     queryKey: ["image", attachment._id],
     queryFn: getAttachments,
   });
 
   if (isLoading) {
-    return (
-      //   image fallback
-      <div className="bg-gray-400 w-full animate-pulse h-full" />
-    );
+    return <div className="bg-gray-400 w-full animate-pulse h-full" />;
   }
 
   console.log({ images });
@@ -38,10 +36,6 @@ export function Image({ attachment }) {
             alt={img}
             onLoad={() => {
               counter.current += 1;
-              console.log({
-                counter: counter.current,
-                length: images.length,
-              });
               if (counter.current === images.length) {
                 counter.current = 0;
                 setAreImagesLoaded(true);
@@ -86,3 +80,7 @@ export function Image({ attachment }) {
     </div>
   );
 }
+
+Image.propTypes = {
+  attachment: PropTypes.shape({}).isRequired,
+};
