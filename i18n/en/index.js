@@ -35,6 +35,11 @@ const en = {
       OWNER: "Owner",
       ALIAS: "alias",
     },
+    PUBLICATIONS: {
+      SUBMITTER: "submitter",
+      TITLE: "Title",
+      DESCRIPTION: "Description",
+    },
   },
 };
 

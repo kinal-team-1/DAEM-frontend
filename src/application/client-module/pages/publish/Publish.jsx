@@ -1,4 +1,4 @@
-import { CaseForm } from "./components/CaseForm.jsx";
+import { CaseForm } from "./components/CaseForm";
 
 export function Publish() {
   return (
