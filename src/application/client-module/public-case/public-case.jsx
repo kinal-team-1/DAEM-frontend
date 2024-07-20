@@ -56,7 +56,7 @@ export function PublicCase() {
 
   return (
     <div className="flex flex-col gap-3 items-center relative h-full">
-      <div className="flex flex-col gap-3 w-full max-w-[800px] py-10 px-3">
+      <div className="flex flex-col gap-3 h-full overflow-y-scroll w-full max-w-[800px] py-10 px-3">
         {publicCases.map((pubCase) => (
           <PublicCaseCard
             key={pubCase._id}
