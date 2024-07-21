@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-export function DynamicTextArea(props) {
-  const [value, setValue] = useState("");
+export function DynamicTextArea({ value, setValue, ...props }) {
   const [isOverflow, setIsOverflow] = useState(false);
   const textareaRef = useRef(null);
   const adjustHeight = () => {

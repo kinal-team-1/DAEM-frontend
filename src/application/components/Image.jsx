@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { getAttachments } from "../actions/GET/get-attachments";
 
-export function Image({ attachment }) {
+export function Image({ attachment, showLength = true }) {
   const counter = useRef(0);
   const [areImagesLoaded, setAreImagesLoaded] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -26,7 +26,7 @@ export function Image({ attachment }) {
   }
 
   return (
-    <div className="flex w-full h-full relative overflow-hidden items-center">
+    <div className="flex w-full h-full grow relative overflow-hidden items-center">
       {images.map((img, i) => {
         return (
           <img
@@ -48,10 +48,12 @@ export function Image({ attachment }) {
       })}
       <div className="absolute bg-black/20 h-full w-full" />
 
-      <div className="font-bold text-3xl w-full flex justify-center items-center gap-1 absolute">
-        <span className="z-100">{images.length}</span>
-        <FontAwesomeIcon className="text-2xl z-100" icon={faPlus} />
-      </div>
+      {showLength && (
+        <div className="font-bold text-3xl w-full flex justify-center items-center gap-1 absolute">
+          <span className="z-100">{images.length}</span>
+          <FontAwesomeIcon className="text-2xl z-100" icon={faPlus} />
+        </div>
+      )}
       <button
         type="button"
         onClick={() => {
