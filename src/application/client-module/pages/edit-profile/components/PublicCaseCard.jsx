@@ -18,10 +18,12 @@ export function PublicCaseCard({
       <div className="rounded h-full w-full shrink-0 max-w-[min(200px,50%)] bg-white ">
         {attachment && <Image attachment={attachment} />}
       </div>
-      <div className="grow h-full flex flex-col gap-5 justify-between">
-        <div className="flex flex-col gap-2">
+      <div className="grow h-full flex flex-col gap-5 justify-between overflow-hidden break-words">
+        <div className="flex flex-col gap-2 w-full">
           <h2 className="text-xl">{title}</h2>
-          <p className="line-clamp-4 text-xs">{description}</p>
+          <p className="line-clamp-4 text-xs w-full overflow-hidden">
+            {description}
+          </p>
         </div>
         <div className="flex flex-wrap gap-3 justify-between items-center">
           <span className="text-xs">

@@ -36,7 +36,7 @@ function TopBarButtons() {
   const currentPath = location.pathname;
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center text-sm">
       <Link
         to={`/${locale}/publish`}
         className="bg-black text-white rounded-full px-5 py-3 flex justify-center"
