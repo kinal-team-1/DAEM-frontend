@@ -22,7 +22,7 @@ export function Layout() {
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
       <Navbar />
-      <div className="overflow-hidden overflow-y-scroll grow">
+      <div className="overflow-hidden overflow-y-scroll grow no-scrollbar">
         <Outlet />
       </div>
     </div>

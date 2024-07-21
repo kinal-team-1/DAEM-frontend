@@ -13,9 +13,9 @@ export function PublicCaseCard({
 
   return (
     <div
-      className={`bg-black/20 rounded-lg shadow-lg p-4 flex gap-5 h-[240px] w-full ${className}`}
+      className={`bg-black/20 rounded-lg shadow-lg p-4 flex flex-col gap-5  min-[430px]:flex-row w-full min-[430px]:h-[240px] ${className}`}
     >
-      <div className="rounded h-full w-full shrink-0 max-w-[min(200px,50%)] bg-white ">
+      <div className="rounded h-[max(9rem,45vw)] min-[430px]:h-full w-full shrink-0 min-[430px]:max-w-[min(200px,50%)] bg-white ">
         {attachment && <Image attachment={attachment} />}
       </div>
       <div className="grow h-full flex flex-col gap-5 justify-between overflow-hidden break-words">

@@ -9,12 +9,15 @@ export function Navbar() {
 
   return (
     <div className="flex py-2 px-3 gap-2 justify-between items-center bg-[#1b1a1a] text-white z-10">
-      <div className="flex gap-3">
+      <div className="flex gap-3 w-fit">
         {/* <img className="size-[60px]" src={guatemalaShield} alt="" /> */}
-        <Link to={`/${locale}/public-case`}>
-          <img className="hidden size-[60px] sm:block" src={logo} alt="Logo" />
+        <Link
+          to={`/${locale}/public-case`}
+          className="flex justify-center items-center"
+        >
+          <img className="w-[min(100%,60px)]" src={logo} alt="Logo" />
         </Link>
-        <div className="max-w-[100px]">
+        <div className="max-w-[100px] hidden sm:block">
           <h2 className="text-3xl text-center font-bold">DAEM</h2>
           <p className="text-[7px] text-center">
             Denuncias Anonimas contra explotacion de menores
@@ -39,7 +42,7 @@ function TopBarButtons() {
     <div className="flex gap-2 items-center text-sm">
       <Link
         to={`/${locale}/publish`}
-        className="bg-black text-white rounded-full px-5 py-3 flex justify-center"
+        className="bg-black text-white  text-nowrap rounded-full px-5 py-3 flex justify-center"
       >
         Presentar caso
       </Link>

@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import { Map } from "../../../../components/Map.jsx";
-import { useLocaleService } from "../../../../../services/locale.jsx";
+import { Map } from "../../../../components/Map";
+import { useLocaleService } from "../../../../../services/locale";
 
 /**
  * @typedef {Object} LocationModalProps
@@ -187,7 +187,6 @@ LocationModal.propTypes = {
   outsideClick: PropTypes.func.isRequired,
   onLocationSelect: PropTypes.func.isRequired,
   onLocationCancel: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
   location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
