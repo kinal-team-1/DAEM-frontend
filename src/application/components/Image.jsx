@@ -26,7 +26,7 @@ export function Image({ attachment }) {
   }
 
   return (
-    <div className="flex w-full h-full relative overflow-hidden items-center">
+    <div className="flex w-full h-full grow relative overflow-hidden items-center">
       {images.map((img, i) => {
         return (
           <img

@@ -14,7 +14,7 @@ export const userRoutes = /** @type import("react-router-dom").RouteObject */ [
     element: <Publish />,
   },
   {
-    path: "publicCase",
+    path: "public-case/:id",
     element: <PublicCaseById />,
   },
   {
