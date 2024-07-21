@@ -17,6 +17,8 @@ export function Image({ attachment }) {
     // eslint-disable-next-line react/prop-types,no-underscore-dangle
     queryKey: ["image", attachment._id],
     queryFn: getAttachments,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60,
   });
 
   if (isLoading) {
