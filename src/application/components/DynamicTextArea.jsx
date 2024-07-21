@@ -41,8 +41,6 @@ export function DynamicTextArea(props) {
 }
 
 DynamicTextArea.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
   rows: PropTypes.number,
 };

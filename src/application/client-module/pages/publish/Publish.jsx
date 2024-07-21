@@ -6,7 +6,7 @@ export function Publish() {
 
   return (
     <div className="flex flex-col md:grid grid-cols-2 gap-5 h-full min-h-fit">
-      <div className="p-4 bg-black/60 text-white  shrink-0 flex flex-col justify-between gap-5 px-10 text-xl">
+      <div className="w-full p-4 bg-black/60 text-white  shrink-0 flex flex-col justify-between gap-5 px-10 text-xl">
         <div className="flex flex-col gap-5 grow justify-center">
           <p>{LL?.PAGES.PUBLISH.PARAGRAPH_ONE()}</p>
           <p>{LL?.PAGES.PUBLISH.PARAGRAPH_TWO()}</p>
@@ -16,8 +16,8 @@ export function Publish() {
           {LL?.PAGES.PUBLISH.REMINDER()}
         </p>
       </div>
-      <div className="flex justify-center items-center p-10">
-        <CaseForm className="grow shrink-0" />
+      <div className="w-full flex justify-center items-center py-10 px-3 md:p-10">
+        <CaseForm className="grow w-full" />
       </div>
     </div>
   );

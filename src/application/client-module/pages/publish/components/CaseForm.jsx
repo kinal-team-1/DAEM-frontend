@@ -86,7 +86,7 @@ export function CaseForm({ className }) {
           };
           mutation.mutate(payload);
         }}
-        className={`p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 rounded-xl min-w-[400px] ${className}`}
+        className={`p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 rounded-xl  max-w-full md:min-w-[400px]  ${className}`}
       >
         <input
           type="text"
@@ -136,7 +136,7 @@ export function CaseForm({ className }) {
         </div>
         <button
           type="submit"
-          className="text-2xl rounded-xl py-5 px-5 bg-black text-white flex justify-center items-center gap-2"
+          className="text-xl rounded-xl py-5 px-5 bg-black text-white flex justify-center items-center gap-2"
         >
           {mutation.isIdle && <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT()}</span>}
           {mutation.isPending && (
@@ -203,6 +203,5 @@ export function CaseForm({ className }) {
 }
 
 CaseForm.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
 };
