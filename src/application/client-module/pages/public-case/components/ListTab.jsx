@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-import { PublicCaseCard } from "../../pages/edit-profile/components/PublicCaseCard";
+import { PublicCaseCard } from "../../edit-profile/components/PublicCaseCard.jsx";
 
 export function ListTab({ loading, publicCases }) {
   return (

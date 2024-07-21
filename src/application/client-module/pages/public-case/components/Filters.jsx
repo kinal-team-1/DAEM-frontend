@@ -4,11 +4,13 @@ import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMap } from "react-leaflet";
 import PropTypes from "prop-types";
-import { Switch } from "../../../components/Switch";
-import { MapComponent } from "../../../components/MapReact";
-import { removeQueryParams } from "../../../../utils/search-params";
+import { Switch } from "../../../../components/Switch.jsx";
+import { MapComponent } from "../../../../components/MapReact.jsx";
+import { removeQueryParams } from "../../../../../utils/search-params.js";
+import { useLocaleService } from "../../../../../services/locale.jsx";
 
 export function Filters({ className, isOpen }) {
+  const { LL } = useLocaleService();
   const [searchParams] = useSearchParams();
   const [newSearchParams, setNewSearchParams] = useState(
     new URLSearchParams(searchParams),
@@ -84,7 +86,7 @@ export function Filters({ className, isOpen }) {
         <div className="flex gap-2">
           <input
             type="text"
-            placeholder="limit"
+            placeholder={LL?.PAGES.PUBLIC_CASES.PLACEHOLDERS.LIMIT()}
             className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
             value={limit}
             onChange={(e) => {
@@ -93,7 +95,7 @@ export function Filters({ className, isOpen }) {
           />
           <input
             type="text"
-            placeholder="page"
+            placeholder={LL?.PAGES.PUBLIC_CASES.PLACEHOLDERS.PAGE()}
             className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
             value={page}
             onChange={(e) => {
@@ -101,7 +103,7 @@ export function Filters({ className, isOpen }) {
             }}
           />
         </div>
-        <p>Location</p>
+        <p>{LL?.PAGES.PUBLIC_CASES.FILTERS.LOCATION()}</p>
 
         <div className="flex gap-2 items-center">
           <Switch
@@ -110,7 +112,7 @@ export function Filters({ className, isOpen }) {
               setHasLocation(!hasLocation);
             }}
           />
-          <p>Use location</p>
+          <p>{LL?.PAGES.PUBLIC_CASES.FILTERS.USE_LOCATION()}</p>
         </div>
 
         {hasLocation && (
@@ -118,7 +120,7 @@ export function Filters({ className, isOpen }) {
             <div className="flex gap-2 w-full">
               <input
                 type="text"
-                placeholder="lat"
+                placeholder={LL?.PAGES.PUBLIC_CASES.PLACEHOLDERS.LAT()}
                 className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
                 value={typedLat}
                 onChange={(e) => {
@@ -127,7 +129,7 @@ export function Filters({ className, isOpen }) {
               />
               <input
                 type="text"
-                placeholder="long"
+                placeholder={LL?.PAGES.PUBLIC_CASES.PLACEHOLDERS.LONG()}
                 className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
                 value={typedLong}
                 onChange={(e) => {
@@ -144,11 +146,11 @@ export function Filters({ className, isOpen }) {
             </div>
             <input
               type="text"
-              placeholder="radius"
+              placeholder={LL?.PAGES.PUBLIC_CASES.PLACEHOLDERS.RADIUS()}
               className="w-full bg-[inherit] border rounded px-2 text-sm"
               value={radius || 0}
               onChange={(e) => {
-                setRadius(+e.target.value);
+                setRadius(e.target.value);
               }}
             />
             <MapComponent
@@ -157,7 +159,7 @@ export function Filters({ className, isOpen }) {
                 const { lat, lng } = e.target.getLatLng();
                 setCoordinates([lat, lng]);
               }}
-              radius={radius || null}
+              radius={Number(radius) || null}
               coordinates={[lat, long]}
               className="h-[150px] w-full"
             >
@@ -171,7 +173,7 @@ export function Filters({ className, isOpen }) {
         className="bg-green-400 text-white p-3 rounded flex justify-center items-center"
       >
         <button type="submit" className="invisible" />
-        Apply
+        {LL?.PAGES.PUBLIC_CASES.FILTERS.SUBMIT()}
       </Link>
     </form>
   );

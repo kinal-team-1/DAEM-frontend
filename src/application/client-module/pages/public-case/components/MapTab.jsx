@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Marker, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import PropTypes from "prop-types";
-import { MapComponent } from "../../../components/MapReact";
+import { MapComponent } from "../../../../components/MapReact.jsx";
 
 const iconRed = new Icon({
   iconUrl: "/marker-icon-red.png",

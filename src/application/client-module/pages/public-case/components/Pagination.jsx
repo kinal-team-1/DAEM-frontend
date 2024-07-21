@@ -5,7 +5,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addQueryParams } from "../../../../utils/search-params";
+import { addQueryParams } from "../../../../../utils/search-params.js";
 
 const getPages = (total, limit) => Math.ceil(total / limit);
 export function Pagination({ total }) {

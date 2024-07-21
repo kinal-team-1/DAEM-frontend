@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getPublicCase } from "../../actions/GET/get-public-case";
-import { addQueryParams } from "../../../utils/search-params";
-import { Filters } from "./components/Filters";
-import { MapTab } from "./components/MapTab";
-import { ListTab } from "./components/ListTab";
-import { Pagination } from "./components/Pagination";
+import PropTypes from "prop-types";
+import { getPublicCase } from "../../../actions/GET/get-public-case.js";
+import { addQueryParams } from "../../../../utils/search-params.js";
+import { Filters } from "./components/Filters.jsx";
+import { MapTab } from "./components/MapTab.jsx";
+import { ListTab } from "./components/ListTab.jsx";
+import { Pagination } from "./components/Pagination.jsx";
+import { useLocaleService } from "../../../../services/locale.jsx";
 
 export function PublicCase() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isOptionsOpen = searchParams.has("options");
+  const location = useLocation();
   const mapSearchParams = [...searchParams.entries()].reduce(
     (acc, [key, value]) => {
       if (key === "options") return acc;
@@ -32,7 +35,7 @@ export function PublicCase() {
 
     searchParams.set("tab", "list");
     setSearchParams(new URLSearchParams(searchParams));
-  }, []);
+  }, [location]);
 
   // if not limit query param, set it to 10
   useEffect(() => {
@@ -40,7 +43,7 @@ export function PublicCase() {
 
     searchParams.set("limit", "10");
     setSearchParams(new URLSearchParams(searchParams));
-  }, []);
+  }, [location]);
 
   const {
     data: [publicCases, message, _, total] = [],
@@ -81,6 +84,7 @@ export function PublicCase() {
 
 function Tabs({ isListTab, isMapTab }) {
   const [searchParams] = useSearchParams();
+  const { LL } = useLocaleService();
 
   return (
     <div className="grid grid-cols-2 text-white relative">
@@ -96,7 +100,7 @@ function Tabs({ isListTab, isMapTab }) {
           data-is-selected={isListTab || null}
           className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
         >
-          List
+          {LL?.PAGES.PUBLIC_CASES.TABS.LIST()}
         </Link>
       </div>
       <div className="col-span-1">
@@ -105,9 +109,14 @@ function Tabs({ isListTab, isMapTab }) {
           data-is-selected={isMapTab || null}
           className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
         >
-          Map
+          {LL?.PAGES.PUBLIC_CASES.TABS.MAP()}
         </Link>
       </div>
     </div>
   );
 }
+
+Tabs.propTypes = {
+  isListTab: PropTypes.bool.isRequired,
+  isMapTab: PropTypes.bool.isRequired,
+};

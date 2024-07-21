@@ -70,6 +70,7 @@ export function LocationModal({
 
   return (
     <div className="fixed top-0 h-dvh flex justify-center items-center w-full z-20">
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <div
         role="dialog"
         onClick={outsideClick}
@@ -187,11 +188,12 @@ LocationModal.propTypes = {
   outsideClick: PropTypes.func.isRequired,
   onLocationSelect: PropTypes.func.isRequired,
   onLocationCancel: PropTypes.func.isRequired,
+  // @ts-ignore
   location: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    address: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     country: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
   }),
 };
