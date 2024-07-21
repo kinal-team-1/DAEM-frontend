@@ -1,7 +1,7 @@
 import React from "react";
 import { AttachmentInput } from "../../../components/AttachmentInput";
 
-export function PublicCase() {
+export function PublicCaseById() {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-5">
       <div className="relative max-w-6xl mx-auto bg-black rounded-lg shadow-md overflow-hidden">
