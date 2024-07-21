@@ -78,7 +78,9 @@ export function CaseForm({ className }) {
           const payload = {
             ...form,
             ...location,
-            filepaths: files.map((f) => f.path),
+            ...(files.length > 0
+              ? { filepaths: files.map((f) => f.path) }
+              : null),
             // eslint-disable-next-line no-underscore-dangle
             submitter: user._id,
           };
