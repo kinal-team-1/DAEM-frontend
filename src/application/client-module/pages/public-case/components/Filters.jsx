@@ -4,10 +4,10 @@ import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMap } from "react-leaflet";
 import PropTypes from "prop-types";
-import { Switch } from "../../../../components/Switch.jsx";
-import { MapComponent } from "../../../../components/MapReact.jsx";
-import { removeQueryParams } from "../../../../../utils/search-params.js";
-import { useLocaleService } from "../../../../../services/locale.jsx";
+import { Switch } from "../../../../components/Switch";
+import { MapComponent } from "../../../../components/MapReact";
+import { removeQueryParams } from "../../../../../utils/search-params";
+import { useLocaleService } from "../../../../../services/locale";
 
 export function Filters({ className, isOpen }) {
   const { LL } = useLocaleService();
@@ -46,7 +46,7 @@ export function Filters({ className, isOpen }) {
     if (radius && hasLocation) newSearchParams.set("radius", radius);
     if (lat && hasLocation) newSearchParams.set("lat", `${lat}`);
     if (long && hasLocation) newSearchParams.set("long", `${long}`);
-    if (limit && hasLocation) newSearchParams.set("limit", `${limit}`);
+    if (limit) newSearchParams.set("limit", `${limit}`);
     if (page) newSearchParams.set("page", `${page}`);
     setNewSearchParams(new URLSearchParams(newSearchParams));
   }, [lat, long, radius, limit, page, hasLocation]);
@@ -150,7 +150,7 @@ export function Filters({ className, isOpen }) {
               className="w-full bg-[inherit] border rounded px-2 text-sm"
               value={radius || 0}
               onChange={(e) => {
-                setRadius(e.target.value);
+                setRadius(`${Number(e.target.value)}`);
               }}
             />
             <MapComponent
