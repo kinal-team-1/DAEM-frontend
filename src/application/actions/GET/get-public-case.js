@@ -8,7 +8,8 @@ import { handleGenericError } from "../handle-generic-error";
  * @throws {ClientError | ServerError | FetchError}
  */
 export const getPublicCase = ({ queryKey }) => {
-  const [, { params }] = queryKey;
+  const [, params] = queryKey;
+  console.log(params);
 
   return client
     .get(`/public-case?${params.toString()}`)

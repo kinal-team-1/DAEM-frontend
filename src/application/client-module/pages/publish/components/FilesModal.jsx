@@ -48,7 +48,7 @@ export function FilesModal({
           e.preventDefault();
           onSubmit(files);
         }}
-        className="w-[500px] bg-[#1b1a1a] z-10 p-5 flex flex-col gap-5 py-5"
+        className="w-[500px] max-w-[90%] bg-[#1b1a1a] z-10 p-5 flex flex-col gap-5 py-5"
       >
         <div className="text-gray-700 text-5xl">
           <button

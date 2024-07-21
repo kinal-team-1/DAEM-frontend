@@ -2,14 +2,13 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { DropDown } from "./DropDown";
 import { SUPPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
-import guatemalaShield from "../../assets/escudo-guatemala.png";
 
 export function Navbar() {
   return (
     <div className="flex py-2 px-3 gap-2 justify-between items-center bg-[#1b1a1a] text-white z-10">
       <div className="flex gap-3">
-        <img className="size-[60px]" src={guatemalaShield} alt="" />
-        <img className="size-[60px]" src={logo} alt="Logo" />
+        {/* <img className="size-[60px]" src={guatemalaShield} alt="" /> */}
+        <img className="hidden size-[60px] sm:block" src={logo} alt="Logo" />
         <div className="max-w-[100px]">
           <h2 className="text-3xl text-center font-bold">DAEM</h2>
           <p className="text-[7px] text-center">
