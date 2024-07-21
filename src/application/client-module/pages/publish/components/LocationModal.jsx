@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import { Map } from "../../../../components/Map";
+import { useMap } from "react-leaflet";
 import { useLocaleService } from "../../../../../services/locale";
+import { MapComponent } from "../../../../components/MapReact";
 
 /**
  * @typedef {Object} LocationModalProps
@@ -100,20 +101,16 @@ export function LocationModal({
           </button>
         </div>
         <div className="px-2 w-full flex flex-col gap-3">
-          <Map
-            onMapClick={(latLng, map, marker) => {
-              map.setView(latLng);
-              marker.setLatLng(latLng);
-              setCoordinates([latLng.lat.toString(), latLng.lng.toString()]);
-            }}
-            onMarkerDrag={(latLng, map, marker) => {
-              map.setView(latLng);
-              marker.setLatLng(latLng);
-              setCoordinates([latLng.lat.toString(), latLng.lng.toString()]);
+          <MapComponent
+            onMarkerDrag={(e) => {
+              const { lat, lng } = e.target.getLatLng();
+              setCoordinates([lat, lng]);
             }}
             coordinates={[lat, long]}
             className="h-[200px] w-full"
-          />
+          >
+            <MapContext lat={lat} long={long} />
+          </MapComponent>
           <input
             type="text"
             className="w-full text-white px-2 py-2 rounded border bg-[transparent]"
@@ -196,4 +193,21 @@ LocationModal.propTypes = {
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
   }),
+};
+
+function MapContext({ lat, long }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!lat || !long) return;
+
+    map.setView([lat, long], map.getZoom());
+  }, [lat, long]);
+
+  return null;
+}
+
+MapContext.propTypes = {
+  lat: PropTypes.number.isRequired,
+  long: PropTypes.number.isRequired,
 };
