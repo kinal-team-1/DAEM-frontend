@@ -23,10 +23,10 @@ export function PublicCaseById() {
 
   return (
     <div className="flex flex-col overflow-y-scroll no-scrollbar md:grid grid-cols-5 w-full h-full text-white">
-      <div className="col-span-3 h-full shrink-0 bg-[#1b1a1a] flex flex-col gap-5 py-5 px-32">
+      <div className="col-span-3 h-full shrink-0 bg-[#1b1a1a] flex flex-col gap-5 py-5 sm:px-20 px-4 md:px-10 lg:px-32">
         <h1 className="text-4xl">{publicCase.title}</h1>
-        <div className="w-full grow">
-          <Image attachment={publicCase.attachment} />
+        <div className="w-full grow h-[max(200px,40%)] shrink-0">
+          <Image showLength={false} attachment={publicCase.attachment} />
         </div>
         <div className="flex flex-col">
           <p className="flex gap-2 text-2xl">
@@ -95,7 +95,7 @@ function ListContributions({ id }) {
           </div>
           <div className="text-xs flex flex-col gap-2 h-[200px]">
             <div className="rounded grow overflow-hidden">
-              <Image attachment={contribution.attachment} />
+              <Image showLength={false} attachment={contribution.attachment} />
             </div>
             <div>{contribution.content}</div>
           </div>
