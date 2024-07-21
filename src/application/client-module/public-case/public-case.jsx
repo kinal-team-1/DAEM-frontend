@@ -77,7 +77,7 @@ export function PublicCase() {
 
       <Filters
         isOpen={isOptionsOpen}
-        className="absolute z-10 right-0 transition ease-in-out translate-x-full data-[is-open]:translate-x-0"
+        className="absolute z-[1000] right-0 transition ease-in-out translate-x-full data-[is-open]:translate-x-0"
       />
       {isMapTab && <MapTab publicCases={publicCases} />}
     </div>

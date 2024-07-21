@@ -20,16 +20,22 @@ export function Filters({ className, isOpen }) {
   const [hasLocation, setHasLocation] = useState(false);
   const [typedLat, typedLong] = coordinates;
   const [lat, long] = [Number(typedLat) || 0, Number(typedLong) || 0];
-  const [radius, setRadius] = useState(null);
+  const [radius, setRadius] = useState(searchParams.get("radius") || null);
+  const [limit, setLimit] = useState(searchParams.get("limit") || 10);
+  const [page, setPage] = useState(searchParams.get("page") || 1);
+
   const userLocationRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log({ page, limit });
     if (radius) newSearchParams.set("radius", radius);
     if (lat) newSearchParams.set("lat", `${lat}`);
     if (long) newSearchParams.set("long", `${long}`);
-    setNewSearchParams(newSearchParams);
-  }, [lat, long, radius]);
+    if (limit) newSearchParams.set("limit", `${limit}`);
+    if (page) newSearchParams.set("page", `${page}`);
+    setNewSearchParams(new URLSearchParams(newSearchParams));
+  }, [lat, long, radius, limit, page]);
 
   function askLocation() {
     if (userLocationRef.current) {
@@ -59,7 +65,7 @@ export function Filters({ className, isOpen }) {
     >
       <div className="flex flex-col gap-4">
         <div className="flex text-silver-500 text-3xl">
-          <Link to={`./?${removeQueryParams(searchParams, "options")}`}>
+          <Link to={`./?${removeQueryParams(newSearchParams, "options")}`}>
             <FontAwesomeIcon icon={faClose} />
           </Link>
         </div>
@@ -68,11 +74,19 @@ export function Filters({ className, isOpen }) {
             type="text"
             placeholder="limit"
             className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
+            value={limit}
+            onChange={(e) => {
+              setLimit(e.target.value);
+            }}
           />
           <input
             type="text"
             placeholder="page"
             className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
+            value={page}
+            onChange={(e) => {
+              setPage(e.target.value);
+            }}
           />
         </div>
         <p>Location</p>
@@ -144,6 +158,7 @@ export function Filters({ className, isOpen }) {
         to={`./?${removeQueryParams(newSearchParams, "options")}`}
         className="bg-green-400 text-white p-3 rounded flex justify-center items-center"
       >
+        <button type="submit" className="invisible" />
         Apply
       </Link>
     </form>
