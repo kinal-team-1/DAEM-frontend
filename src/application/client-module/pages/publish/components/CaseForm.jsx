@@ -41,6 +41,14 @@ export function CaseForm({ className }) {
     mutationFn: createPublicCase,
   });
 
+  useEffect(() => {
+    if (!mutation.isSuccess && !mutation.isError) return;
+
+    setTimeout(() => {
+      mutation.reset();
+    }, 3000);
+  }, [mutation.isSuccess, mutation.isError]);
+
   // assign the modal element to the ref only once
   useEffect(() => {
     if (!modalRef.current) {
@@ -56,6 +64,8 @@ export function CaseForm({ className }) {
       title: "",
       description: "",
     });
+    setLocation(null);
+    setFiles([]);
   }, [mutation.isSuccess]);
 
   return (
@@ -68,17 +78,15 @@ export function CaseForm({ className }) {
           const payload = {
             ...form,
             ...location,
-            filepaths: files.map((f) => f.path),
+            ...(files.length > 0
+              ? { filepaths: files.map((f) => f.path) }
+              : null),
             // eslint-disable-next-line no-underscore-dangle
             submitter: user._id,
           };
           mutation.mutate(payload);
-
-          setTimeout(() => {
-            mutation.reset();
-          }, 3000);
         }}
-        className={`p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 rounded-xl min-w-[400px] ${className}`}
+        className={`p-4 bg-black/60 flex flex-col gap-3 [&_.border]:border-2 rounded-xl  max-w-full md:min-w-[400px]  ${className}`}
       >
         <input
           type="text"
@@ -128,7 +136,7 @@ export function CaseForm({ className }) {
         </div>
         <button
           type="submit"
-          className="text-2xl rounded-xl py-5 px-5 bg-black text-white flex justify-center items-center gap-2"
+          className="text-xl rounded-xl py-5 px-5 bg-black text-white flex justify-center items-center gap-2"
         >
           {mutation.isIdle && <span>{LL?.PAGES.PUBLISH.BUTTONS.SUBMIT()}</span>}
           {mutation.isPending && (
@@ -195,6 +203,5 @@ export function CaseForm({ className }) {
 }
 
 CaseForm.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
 };

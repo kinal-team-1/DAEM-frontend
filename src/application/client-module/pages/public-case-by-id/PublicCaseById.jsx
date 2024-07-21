@@ -1,4 +1,3 @@
-import React from "react";
 import { AttachmentInput } from "../../../components/AttachmentInput";
 
 export function PublicCaseById() {

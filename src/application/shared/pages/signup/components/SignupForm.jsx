@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signup } from "../../../../actions/POST/signup";
@@ -39,6 +39,12 @@ export function SignupForm() {
     },
   });
 
+  useEffect(() => {
+    if (!mutationSignup.isError) return;
+
+    setTimeout(() => mutationSignup.reset(), 3000);
+  }, [mutationSignup.isError]);
+
   return (
     <form
       onSubmit={(e) => {
@@ -46,9 +52,7 @@ export function SignupForm() {
         if (!mutationSignup.isIdle) return;
 
         if (form.password !== form.confirmPassword) return;
-        mutationSignup.mutateAsync(form).finally(() => {
-          setTimeout(() => mutationSignup.reset(), 3000);
-        });
+        mutationSignup.mutate(form);
       }}
       className="md:bg-black/70 flex flex-col gap-2 md:flex-row md:gap-0 h-fit"
     >
@@ -119,23 +123,31 @@ export function SignupForm() {
             setForm({ ...form, confirmPassword: e.target.value });
           }}
         />
-        <button
-          type="submit"
-          className="py-4 px-3 bg-black rounded-xl text-white flex justify-center items-center gap-2"
-        >
-          {mutationSignup.isIdle && (
-            <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT()}</span>
-          )}
-          {mutationSignup.isPending && (
-            <>
-              <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_LOADING()}</span>
-              <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
-            </>
-          )}
-          {mutationSignup.isError && (
-            <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_ERROR()}</span>
-          )}
-        </button>
+        <div className="flex flex-col gap-2">
+          <button
+            type="submit"
+            className="py-4 px-3 bg-black rounded-xl text-white flex justify-center items-center gap-2"
+          >
+            {mutationSignup.isIdle && (
+              <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT()}</span>
+            )}
+            {mutationSignup.isPending && (
+              <>
+                <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_LOADING()}</span>
+                <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
+              </>
+            )}
+            {mutationSignup.isError && (
+              <span>{LL?.PAGES.SIGNUP.BUTTONS.SUBMIT_ERROR()}</span>
+            )}
+          </button>
+          <Link
+            to={`/${locale}/login`}
+            className="text-black shrink grow py-3 px-3 bg-white rounded-xl flex justify-center items-center gap-2"
+          >
+            <span>Log in</span>
+          </Link>
+        </div>
       </div>
     </form>
   );

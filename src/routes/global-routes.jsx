@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
           console.log({ user, token });
           if (!user) return redirect(`${locale}/login`);
 
-          return redirect(`/${locale}/publish`);
+          return redirect(`/${locale}/public-case`);
         },
         path: "/",
       },
