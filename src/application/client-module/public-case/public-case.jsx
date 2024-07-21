@@ -62,7 +62,7 @@ export function PublicCase() {
     <div className="flex flex-col relative grow h-full">
       <Tabs isMapTab={isMapTab} isListTab={isListTab} />
       {isListTab && (
-        <div className="grow overflow-y-scroll">
+        <div className="grow flex flex-col overflow-y-scroll">
           <ListTab loading={isLoading} publicCases={publicCases} />
           <div className="flex justify-center">
             <Pagination total={total} />

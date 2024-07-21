@@ -9,13 +9,14 @@ export function Navbar() {
 
   return (
     <div className="flex py-2 px-3 gap-2 justify-between items-center bg-[#1b1a1a] text-white z-10">
-      <div className="flex gap-3 w-fit">
+      <div className="flex gap-3">
         {/* <img className="size-[60px]" src={guatemalaShield} alt="" /> */}
-        <Link
-          to={`/${locale}/public-case`}
-          className="flex justify-center items-center"
-        >
-          <img className="w-[min(100%,60px)]" src={logo} alt="Logo" />
+        <Link to={`/${locale}/public-case`} className="max-w-[min(100%,60px)]">
+          <img
+            className="w-full aspect-square sm:size-[60px]"
+            src={logo}
+            alt="Logo"
+          />
         </Link>
         <div className="max-w-[100px] hidden sm:block">
           <h2 className="text-3xl text-center font-bold">DAEM</h2>
