@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Image } from "../../../../components/Image";
+import { Image } from "../../components/Image";
 
 export function AnonymousCaseCard({
   id,
