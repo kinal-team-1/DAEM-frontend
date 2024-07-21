@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import PropTypes from "prop-types";
 import { MapComponent } from "../../../components/MapReact";
@@ -15,12 +15,12 @@ const iconRed = new Icon({
 
 export function MapTab({ publicCases }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [lat, long, radius] = [
+  const [coordinates, setCoordinates] = useState([
     searchParams.get("lat"),
     searchParams.get("long"),
-    searchParams.get("radius"),
-  ];
-
+  ]);
+  const [lat, long] = coordinates;
+  const radius = searchParams.get("radius");
   useEffect(() => {
     if (lat && long) return;
 
@@ -30,9 +30,7 @@ export function MapTab({ publicCases }) {
         position.coords.longitude.toString(),
       ];
 
-      searchParams.set("lat", coords[0]);
-      searchParams.set("long", coords[1]);
-      setSearchParams(searchParams);
+      setCoordinates(coords);
     });
   }, [lat, long]);
 
@@ -45,6 +43,7 @@ export function MapTab({ publicCases }) {
           isMarkerDraggable={false}
           className="w-full h-full"
         >
+          <MapContext lat={lat} long={long} />
           {publicCases &&
             publicCases.map((pub) => {
               // eslint-disable-next-line no-shadow
@@ -80,6 +79,18 @@ export function MapTab({ publicCases }) {
       </div>
     </div>
   );
+}
+
+function MapContext({ lat, long }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!lat || !long) return;
+
+    map.setView([lat, long], map.getZoom());
+  }, [lat, long]);
+
+  return null;
 }
 
 MapTab.propTypes = {

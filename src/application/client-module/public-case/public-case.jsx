@@ -31,7 +31,7 @@ export function PublicCase() {
     if (["list", "map"].includes(searchParams.get("tab"))) return;
 
     searchParams.set("tab", "list");
-    setSearchParams(searchParams);
+    setSearchParams(new URLSearchParams(searchParams));
   }, []);
 
   // if not limit query param, set it to 10
@@ -39,13 +39,8 @@ export function PublicCase() {
     if (searchParams.has("limit")) return;
 
     searchParams.set("limit", "10");
-    setSearchParams(searchParams);
-  }, []);
-
-  // TODO: Document this effect
-  useEffect(() => {
     setSearchParams(new URLSearchParams(searchParams));
-  }, [searchParams]);
+  }, []);
 
   const {
     data: [publicCases, message, _, total] = [],

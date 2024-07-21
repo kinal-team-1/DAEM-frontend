@@ -24,18 +24,30 @@ export function Filters({ className, isOpen }) {
   const [limit, setLimit] = useState(searchParams.get("limit") || 10);
   const [page, setPage] = useState(searchParams.get("page") || 1);
 
+  useEffect(() => {
+    setNewSearchParams(new URLSearchParams(searchParams));
+  }, [searchParams]);
+
   const userLocationRef = useRef(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (hasLocation) return;
+
+    newSearchParams.delete("lat");
+    newSearchParams.delete("long");
+    newSearchParams.delete("radius");
+    setNewSearchParams(new URLSearchParams(newSearchParams));
+  }, [hasLocation]);
 
   useEffect(() => {
     console.log({ page, limit });
-    if (radius) newSearchParams.set("radius", radius);
-    if (lat) newSearchParams.set("lat", `${lat}`);
-    if (long) newSearchParams.set("long", `${long}`);
-    if (limit) newSearchParams.set("limit", `${limit}`);
+    if (radius && hasLocation) newSearchParams.set("radius", radius);
+    if (lat && hasLocation) newSearchParams.set("lat", `${lat}`);
+    if (long && hasLocation) newSearchParams.set("long", `${long}`);
+    if (limit && hasLocation) newSearchParams.set("limit", `${limit}`);
     if (page) newSearchParams.set("page", `${page}`);
     setNewSearchParams(new URLSearchParams(newSearchParams));
-  }, [lat, long, radius, limit, page]);
+  }, [lat, long, radius, limit, page, hasLocation]);
 
   function askLocation() {
     if (userLocationRef.current) {
@@ -110,7 +122,7 @@ export function Filters({ className, isOpen }) {
                 className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
                 value={typedLat}
                 onChange={(e) => {
-                  setCoordinates([typedLong, e.target.value]);
+                  setCoordinates([e.target.value, typedLong]);
                 }}
               />
               <input
@@ -119,7 +131,7 @@ export function Filters({ className, isOpen }) {
                 className="shrink min-w-0 bg-[inherit] border rounded px-2 text-sm"
                 value={typedLong}
                 onChange={(e) => {
-                  setCoordinates([e.target.value, typedLat]);
+                  setCoordinates([typedLat, e.target.value]);
                 }}
               />
               <button
