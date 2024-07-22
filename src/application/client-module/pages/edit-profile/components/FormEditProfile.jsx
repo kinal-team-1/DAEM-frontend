@@ -14,8 +14,7 @@ const removeQueryParams = (searchParams, param) => {
   return newSearchParams.toString();
 };
 
-export function FormEditProfile({ searchParams }) {
-  const { user } = useAuthService();
+export function FormEditProfile({ searchParams, user }) {
   const [form, setForm] = useState({
     phoneNumber: "",
     password: "",

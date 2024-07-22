@@ -26,7 +26,7 @@ export function SeeProfile({ user }) {
   const tab = searchParams.get("tab");
   const isCasesTab = tab === "cases";
   const isContributionsTab = tab === "contributions";
-  const canEdit = user.role === "admin" || user._id === userLogged._id;
+  const canEdit = userLogged.role === "admin" || user._id === userLogged._id;
   const isEdit = searchParams.has("isEdit") && canEdit;
 
   const iName = user.name ? user.name[0] : "";
@@ -74,7 +74,7 @@ export function SeeProfile({ user }) {
             )}
           </>
         )}
-        {isEdit && <FormEditProfile searchParams={searchParams} />}
+        {isEdit && <FormEditProfile searchParams={searchParams} user={user} />}
       </div>
       <div className="grow h-full shrink-0 min-[900px]:shrink flex flex-col">
         <div className="grid grid-cols-2">

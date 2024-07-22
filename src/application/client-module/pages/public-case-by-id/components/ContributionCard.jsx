@@ -16,10 +16,13 @@ export function ContributionCard({
   const jsxContent = (
     <>
       <div className="flex justify-between items-center">
-        <div className="flex gap-2">
+        <Link
+          to={`/${locale}/user/${user_id._id}`}
+          className="flex gap-2 text-green-400 underline"
+        >
           <span>{user_id.name}</span>
           <span>{user_id.lastname}</span>
-        </div>
+        </Link>
         <span className="text-xs">
           {Intl.DateTimeFormat("es-ES", {
             year: "numeric",
