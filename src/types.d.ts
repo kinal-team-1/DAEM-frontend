@@ -24,6 +24,13 @@ export type PublicCase = {
   submitter: string;
 } & Location;
 
+export type AnonymousCase = {
+  title: string;
+  description: string;
+  filepaths: string[];
+  key?: string;
+} & Location;
+
 export type User = {
   email: string;
   password: string;

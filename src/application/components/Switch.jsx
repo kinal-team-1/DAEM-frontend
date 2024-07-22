@@ -5,20 +5,20 @@ import PropTypes from "prop-types";
  */
 export function Switch({ isChecked, handleChange }) {
   return (
-    <>
-      <input
-        checked={isChecked}
-        onChange={handleChange}
-        className="h-0 w-0 invisible group/checkbox"
-        id="react-switch-new"
-        type="checkbox"
-      />
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+    <div className="relative">
       <label
         data-is-checked={isChecked || null}
         className="flex items-center justify-between cursor-pointer w-[70px] h-[30px] bg-gray-200 rounded-[100px] relative transition-[background-color,0.2s] group/label data-[is-checked]:bg-green-400"
-        htmlFor="react-switch-new"
+        // htmlFor="react-switch-new"
       >
+        <input
+          checked={isChecked}
+          onChange={handleChange}
+          className="h-0 w-0 absolute invisible group/checkbox"
+          // id="react-switch-new"
+          type="checkbox"
+        />
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <div
           data-is-checked={isChecked || null}
           className="h-[calc(100%-3px)] aspect-square transition-[0.2s] absolute top-0.5 left-1 data-[is-checked]:left-[calc(100%-2px)]"
@@ -29,7 +29,7 @@ export function Switch({ isChecked, handleChange }) {
           />
         </div>
       </label>
-    </>
+    </div>
   );
 }
 

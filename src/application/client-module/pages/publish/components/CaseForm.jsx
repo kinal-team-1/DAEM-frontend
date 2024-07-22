@@ -11,9 +11,12 @@ import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import { LocationModal } from "./LocationModal";
 import { FilesModal } from "./FilesModal";
-import { createPublicCase } from "../../../../actions/POST/create-case";
+import { createPublicCase } from "../../../../actions/POST/create-public-case";
 import { useAuthService } from "../../../../../services/auth";
 import { useLocaleService } from "../../../../../services/locale";
+import { Switch } from "../../../../components/Switch";
+import { createAnonymousCase } from "../../../../actions/POST/create-anonymous-case";
+import { KeyModal } from "./KeyModal";
 
 /**
  * @typedef {Object} CaseFormProps
@@ -30,15 +33,25 @@ export function CaseForm({ className }) {
   const modalRef = /** @type {HTMLElement | null} */ useRef(null);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isFilesModalOpen, setIsFilesModalOpen] = useState(false);
+  const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+  const anonymousCaseRef = useRef(null);
+  const [key, setKey] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
   });
+  const [isAnonymousCase, setIsAnoynymousCase] = useState(false);
   const [location, setLocation] = useState(null);
   const [files, setFiles] = useState([]);
 
   const mutation = useMutation({
-    mutationFn: createPublicCase,
+    mutationFn: isAnonymousCase ? createAnonymousCase : createPublicCase,
+    onSuccess([anonymousCase]) {
+      if (isAnonymousCase && !key) {
+        setIsKeyModalOpen(true);
+        anonymousCaseRef.current = anonymousCase;
+      }
+    },
   });
 
   useEffect(() => {
@@ -66,6 +79,7 @@ export function CaseForm({ className }) {
     });
     setLocation(null);
     setFiles([]);
+    setKey("");
   }, [mutation.isSuccess]);
 
   return (
@@ -82,7 +96,8 @@ export function CaseForm({ className }) {
               ? { filepaths: files.map((f) => f.path) }
               : null),
             // eslint-disable-next-line no-underscore-dangle
-            submitter: user._id,
+            ...(!isAnonymousCase ? { submitter: user._id } : null),
+            ...(isAnonymousCase && key ? { key } : null),
           };
           mutation.mutate(payload);
         }}
@@ -105,6 +120,25 @@ export function CaseForm({ className }) {
           value={form.description}
           onChange={(e) => {
             setForm({ ...form, description: e.target.value });
+          }}
+        />
+        <div className="flex gap-5 items-center text-white">
+          <Switch
+            isChecked={isAnonymousCase}
+            handleChange={() => {
+              setIsAnoynymousCase(!isAnonymousCase);
+            }}
+          />
+          <span>Caso Anonimo</span>
+        </div>
+        <input
+          data-is-visible={isAnonymousCase || null}
+          type="text"
+          placeholder="Secret key"
+          className="px-4 py-2 w-full min-w-0 rounded bg-[transparent] border boder-white outline-none text-white invisible data-[is-visible]:visible placeholder:text-white"
+          value={key}
+          onChange={(e) => {
+            setKey(e.target.value);
           }}
         />
         <div className="flex gap-2">
@@ -195,6 +229,25 @@ export function CaseForm({ className }) {
             onCancel={() => {
               setIsFilesModalOpen(false);
             }}
+          />,
+          modalRef.current,
+        )}
+      {isKeyModalOpen &&
+        createPortal(
+          <KeyModal
+            onSubmit={() => {
+              anonymousCaseRef.current = null;
+              setIsKeyModalOpen(false);
+            }}
+            onCancel={() => {
+              anonymousCaseRef.current = null;
+              setIsKeyModalOpen(false);
+            }}
+            outsideClick={() => {
+              anonymousCaseRef.current = null;
+              setIsKeyModalOpen(false);
+            }}
+            anonymousCase={anonymousCaseRef.current}
           />,
           modalRef.current,
         )}

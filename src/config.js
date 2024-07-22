@@ -3,6 +3,8 @@ import axios from "axios";
 export const API_URL = "https://daem-backend.onrender.com/api";
 export const SUPPORTED_LANGUAGES = ["en", "es"];
 
+export const EMAILJS_PUBLIC_KEY = "OV924hAIzB0XqlqCv";
+
 export const client = axios.create({
   baseURL: API_URL,
   headers: {
