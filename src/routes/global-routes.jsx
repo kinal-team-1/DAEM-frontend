@@ -11,6 +11,7 @@ import { PrivateUserRoute } from "./validations/PrivateUserRoute";
 import { Layout } from "../application/client-module/pages/Layout";
 import { userRoutes } from "./user-routes";
 import { LocaleHandler } from "./validations/LocaleHandler";
+import { PrivateAdminRoute } from "./validations/AdminUserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,8 @@ export const router = createBrowserRouter([
           const [user] = await validateToken(token);
           console.log({ user, token });
           if (!user) return redirect(`${locale}/login`);
+
+          if (user.role === "admin") return redirect(`/${locale}/admin`);
 
           return redirect(`/${locale}/public-case`);
         },
@@ -56,7 +59,16 @@ export const router = createBrowserRouter([
                   },
                 ],
               },
-              ...adminRoutes,
+              {
+                path: "admin",
+                element: <PrivateAdminRoute />,
+                children: [
+                  {
+                    path: "",
+                    children: [...adminRoutes],
+                  },
+                ],
+              },
               {
                 path: "signup",
                 element: <Signup />,

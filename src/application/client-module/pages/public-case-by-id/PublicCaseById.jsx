@@ -63,7 +63,12 @@ function ListContributions({ id }) {
     queryFn: getContributionsByPublicCaseId,
   });
 
-  if (isLoading) return <div>Spinner...</div>;
+  if (isLoading)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="border-b-green-400 rounded-full size-[80px] border-vulcan-500 border-8 animate-spin" />
+      </div>
+    );
 
   if (isError) {
     return <div>ERROR</div>;
