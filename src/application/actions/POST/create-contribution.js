@@ -8,5 +8,10 @@ import { handleGenericError } from "../handle-generic-error";
  * @throws {ClientError | ServerError | FetchError}
  */
 export const createContribution = (contribution) => {
-  return client.post("contribution", contribution).catch(handleGenericError);
+  return client
+    .post("contribution", contribution)
+    .then((res) => {
+      return [res.data.data, res.data.message, res.status];
+    })
+    .catch(handleGenericError);
 };

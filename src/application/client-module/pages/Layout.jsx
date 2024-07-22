@@ -21,7 +21,7 @@ export function Layout() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <Navbar />
+      <Navbar role="user" />
       <div className="overflow-hidden overflow-y-scroll grow no-scrollbar">
         <Outlet />
       </div>

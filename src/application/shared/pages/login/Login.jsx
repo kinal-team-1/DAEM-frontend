@@ -12,7 +12,7 @@ export function Login() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <Navbar />
+      <Navbar role=""/>
       <div className="overflow-hidden overflow-y-scroll grow shrink-0 py-5">
         <div className="flex flex-col gap-10 justify-center items-center h-full w-full">
           <LoginForm />

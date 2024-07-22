@@ -25,11 +25,17 @@ export function EditProfile() {
   const isContributionsTab = tab === "contributions";
   const isEdit = searchParams.has("isEdit");
   const { user } = useAuthService();
+
+  const iName = user.name ? user.name[0] : '';
+  const iLastname = user.lastname ? user.lastname[0] : '';
+
   return (
     <div className="flex flex-col min-[900px]:flex-row h-full text-white">
       <div className="bg-black/30 grow h-full min-[900px]:w-[350px] min-[900px]:grow-0 shrink-0 flex flex-col items-center py-5 gap-2 px-10">
         <div className="flex justify-center">
-          <div className="min-[900px]:size-[150px] size-[200px] rounded-full bg-gray-400" />
+          <div className="min-[900px]:size-[150px] size-[200px] rounded-full bg-black border-2 text-6xl font-bold flex items-center justify-center">
+            {iName}{iLastname}
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold flex gap-2">

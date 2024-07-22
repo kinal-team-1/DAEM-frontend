@@ -12,6 +12,7 @@ import { Layout } from "../application/client-module/pages/Layout";
 import { userRoutes } from "./user-routes";
 import { LocaleHandler } from "./validations/LocaleHandler";
 import { PrivateAdminRoute } from "./validations/AdminUserRoute";
+import { AdminLayout } from "../application/admin-module/AdminLayout.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     path: "",
+                    element: <AdminLayout />,
                     children: [...adminRoutes],
                   },
                 ],
