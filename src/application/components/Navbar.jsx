@@ -58,9 +58,6 @@ function TopBarButtons({ role }) {
 
   const { user, setUser } = useAuthService();
 
-  const iName = user.name ? user.name[0] : '';
-  const iLastname = user.lastname ? user.lastname[0] : '';
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -113,7 +110,9 @@ function TopBarButtons({ role }) {
         style={{ display: isAnonymous || isLogin ? 'none' : 'block' }}
         className="border bg-black px-2 py-1 size-[calc(120px/3)] cursor-pointer rounded-full"
       >
-        <span className="text-sm font-bold">{iName}{iLastname}</span>
+        <span className="text-sm font-bold">
+          {user ? user.name[0] + user.lastname[0] : ""}
+        </span>
       </button>
       {dropdownOpen && (
         <div className="absolute z-20 right-0 mt-32 mr-2 w-52 bg-white border shadow-lg border-none">
