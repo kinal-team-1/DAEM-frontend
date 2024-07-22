@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { Pagination } from "./components/Pagination.jsx";
+import { Pagination } from "../../client-module/pages/public-case/components/Pagination.jsx";
 import { getUsers } from "../../actions/GET/get-users.js"
-import { ListUsers } from "./components/ListUsers.jsx";
-import { useLocaleService } from "../../../../services/locale.jsx";;
+import { ListUsers } from "../components/ListUsers.jsx";
+import { useLocaleService } from "../../../services/locale.jsx";
 
-export function allUsers(){
+export function AllUsers() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const mapSearchParams = [...searchParams.entries()].reduce(
