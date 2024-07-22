@@ -23,7 +23,7 @@ export function UserCard({
         </div>
       </div>
       <div className="text-white p-4 rounded-md w-full">
-        <Link 
+        <Link
           to={`/${locale}/user/${id}`}
           className="hover:text-green-500 hover:underline font-bold text-2xl"
         >
