@@ -2,8 +2,6 @@ import * as PropTypes from "prop-types";
 import { PublicCaseCard } from "../../edit-profile/components/PublicCaseCard";
 
 export function ListTab({ loading, publicCases }) {
-  console.log(publicCases);
-
   return (
     <div className="flex flex-col gap-3 items-center relative grow">
       {!loading && (

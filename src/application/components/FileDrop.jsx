@@ -30,8 +30,6 @@ export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
     onSuccess: (data, file) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
       onFileAdded(file);
-
-      console.log({ uploadFileResponse, uploadFileMessage, uploadFileStatus });
     },
     onError: (error) => {},
   });

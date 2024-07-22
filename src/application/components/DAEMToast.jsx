@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} BankToastProps
+ * @typedef {Object} DAEMToastProps
  * @property {function} [closeToast]
  * @property {Object} [toastProps]
  * @property {number} statusCode
@@ -16,9 +16,9 @@ const colors = {
 };
 
 /**
- * @param {BankToastProps} props
+ * @param {DAEMToastProps} props
  */
-export function BankToast({ toastProps, statusCode, title, message }) {
+export function DAEMToast({ toastProps, statusCode, title, message }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpenState = () => {
     setIsOpen((prev) => !prev);
@@ -72,7 +72,7 @@ export function BankToast({ toastProps, statusCode, title, message }) {
   );
 }
 
-BankToast.propTypes = {
+DAEMToast.propTypes = {
   statusCode: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.arrayOf(PropTypes.string).isRequired,

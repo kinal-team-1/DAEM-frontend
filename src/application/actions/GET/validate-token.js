@@ -14,7 +14,7 @@ export const validateToken = (token) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((res) => [res.data.data, res.data.message])
+    .then((res) => [res.data.data, res.data.message, res.status])
     .catch((error) => {
       if (error.response.status === 401) {
         localStorage.removeItem("token");

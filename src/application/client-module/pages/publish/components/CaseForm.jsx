@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import { LocationModal } from "./LocationModal";
 import { FilesModal } from "./FilesModal";
@@ -17,6 +17,7 @@ import { useLocaleService } from "../../../../../services/locale";
 import { Switch } from "../../../../components/Switch";
 import { createAnonymousCase } from "../../../../actions/POST/create-anonymous-case";
 import { KeyModal } from "./KeyModal";
+import { useMutationWithToast } from "../../../../hooks/use-mutation-with-toast";
 
 /**
  * @typedef {Object} CaseFormProps
@@ -44,15 +45,17 @@ export function CaseForm({ className }) {
   const [location, setLocation] = useState(null);
   const [files, setFiles] = useState([]);
 
-  const mutation = useMutation({
-    mutationFn: isAnonymousCase ? createAnonymousCase : createPublicCase,
-    onSuccess([anonymousCase]) {
-      if (isAnonymousCase && !key) {
-        setIsKeyModalOpen(true);
-        anonymousCaseRef.current = anonymousCase;
-      }
+  const mutation = useMutationWithToast(
+    isAnonymousCase ? createAnonymousCase : createPublicCase,
+    {
+      onSuccess([anonymousCase]) {
+        if (isAnonymousCase && !key) {
+          setIsKeyModalOpen(true);
+          anonymousCaseRef.current = anonymousCase;
+        }
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (!mutation.isSuccess && !mutation.isError) return;

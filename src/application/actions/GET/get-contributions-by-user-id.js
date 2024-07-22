@@ -10,6 +10,6 @@ export const getContributionsByUserId = ({ queryKey }) => {
   const [, { userId }] = queryKey;
   return client
     .get(`contribution/by-user/${userId}`)
-    .then((res) => [res.data.data, res.data.message])
+    .then((res) => [res.data.data, res.data.message, res.status])
     .catch(handleGenericError);
 };
