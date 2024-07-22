@@ -67,7 +67,6 @@ export function Image({ attachment, showLength = true }) {
       <button
         type="button"
         onClick={() => {
-          console.log({ current });
           if (current > images.length - 2) return;
           setCurrent((prev) => prev + 1);
         }}

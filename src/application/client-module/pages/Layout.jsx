@@ -1,11 +1,16 @@
 import { Outlet, useLocation, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Navbar } from "../../components/Navbar";
+import { useAuthService } from "../../../services/auth";
 
-export function Layout() {
+export function Layout({ alternativeBackground = false }) {
   const location = useLocation();
   const { locale } = useParams();
+  const { user } = useAuthService();
 
-  const isProfilePage = location.pathname.startsWith(`/${locale}/edit-profile`);
+  const isProfilePage =
+    alternativeBackground ||
+    location.pathname.startsWith(`/${locale}/edit-profile`);
 
   return (
     <div className="h-dvh flex flex-col">
@@ -21,10 +26,14 @@ export function Layout() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <Navbar role="user" />
+      <Navbar role={user.role || ""} />
       <div className="overflow-hidden overflow-y-scroll grow no-scrollbar">
         <Outlet />
       </div>
     </div>
   );
 }
+
+Layout.propTypes = {
+  alternativeBackground: PropTypes.bool,
+};

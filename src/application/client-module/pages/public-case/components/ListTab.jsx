@@ -1,7 +1,9 @@
 import * as PropTypes from "prop-types";
-import { PublicCaseCard } from "../../edit-profile/components/PublicCaseCard.jsx";
+import { PublicCaseCard } from "../../edit-profile/components/PublicCaseCard";
 
 export function ListTab({ loading, publicCases }) {
+  console.log(publicCases);
+
   return (
     <div className="flex flex-col gap-3 items-center relative grow">
       {!loading && (
@@ -15,6 +17,7 @@ export function ListTab({ loading, publicCases }) {
                 reported_at={pubCase.reported_at}
                 id={pubCase._id}
                 attachment={pubCase.attachment}
+                submitter={pubCase.submitter}
                 className="bg-black/70 text-white"
               />
             );

@@ -24,7 +24,6 @@ export const DarkModeContext = createContext({
 
 export function DarkModeProvider({ children }) {
   const htmlRef = useRef(null);
-  console.log("ajskdhasdhasdjhsa");
 
   if (!htmlRef.current) {
     htmlRef.current = document.querySelector("html");

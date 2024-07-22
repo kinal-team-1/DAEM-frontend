@@ -28,7 +28,6 @@ export function ListContributions({ user }) {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(contributions);
   return (
     <div className="flex flex-col gap-3 items-center">
       <h2 className="text-white text-2xl">

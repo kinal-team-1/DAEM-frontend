@@ -9,7 +9,6 @@ import { useLocaleService } from "../../../../../services/locale";
 
 export function LoginForm() {
   const { LL, locale: localePage } = useLocaleService();
-  console.log({ localePage });
   const { locale } = useParams();
   const navigate = useNavigate();
   const { setUser } = useAuthService();

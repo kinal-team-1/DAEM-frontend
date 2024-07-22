@@ -47,7 +47,6 @@ export function FormEditProfile({ searchParams }) {
         if (form.password !== form.confirmPassword) {
           return;
         }
-        console.log(form);
         editProfileMutation.mutate({
           phone_number: form.phoneNumber,
           password: form.password,

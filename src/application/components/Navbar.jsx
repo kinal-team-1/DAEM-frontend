@@ -99,7 +99,6 @@ function TopBarButtons({ role }) {
             return;
           }
 
-          console.log({ options, currentPath });
           const regex = new RegExp(`/(${options.join("|")})/`, "g");
           navigate(currentPath.replace(regex, `/${lang}/`) + location.search);
         }}

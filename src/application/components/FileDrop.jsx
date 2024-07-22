@@ -29,14 +29,11 @@ export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
     mutationFn: uploadFile,
     onSuccess: (data, file) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
-      console.log({ file });
       onFileAdded(file);
 
       console.log({ uploadFileResponse, uploadFileMessage, uploadFileStatus });
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError: (error) => {},
   });
 
   const removeMutation = useMutation({
@@ -49,9 +46,7 @@ export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
       });
       removeMutation.reset();
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError: (error) => {},
   });
 
   const onDrop = useCallback(async (acceptedFiles) => {
