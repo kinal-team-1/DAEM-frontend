@@ -1,6 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
+
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { uploadFile } from "../actions/POST/upload-file";
@@ -15,7 +16,7 @@ export function AttachmentInput({ publicCaseId }) {
   const [content, setContent] = useState("");
   const { user } = useAuthService();
 
-  const uploadFileMutation = useMutation({
+  const uploadFileMutation = useMutationwithToast({
     mutationFn: uploadFile,
     onSuccess: (data) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;

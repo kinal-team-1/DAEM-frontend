@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocaleService } from "../../../../../services/locale";
 import { editProfile } from "../../../../actions/PUT/edit-profile";
 import { useAuthService } from "../../../../../services/auth";
+// import { DAEMToast } from "../../../../components/DAEMToast";
+import { useMutationWithToast } from "../../../../hooks/use-mutation-with-toast";
 
 const removeQueryParams = (searchParams, param) => {
   const newSearchParams = new URLSearchParams(searchParams);
@@ -25,8 +27,7 @@ export function FormEditProfile({ searchParams }) {
   const { LL } = useLocaleService();
   const navigate = useNavigate();
 
-  const editProfileMutation = useMutation({
-    mutationFn: editProfile,
+  const editProfileMutation = useMutationWithToast(editProfile, {
     onSuccess: ([newUser]) => {
       setUser(newUser);
       navigate(`./?${removeQueryParams(searchParams, "isEdit")}`);

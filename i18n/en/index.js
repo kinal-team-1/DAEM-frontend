@@ -20,6 +20,10 @@ const en = {
     EDIT_PROFILE: editProfile,
     PUBLIC_CASES: publicCases,
   },
+  TOAST: {
+    SUCCESS: "Successfull",
+    ERROR: "Error",
+  },
 };
 
 // eslint-disable-next-line import/no-default-export
