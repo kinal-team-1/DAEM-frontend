@@ -12,7 +12,7 @@ export const getAllAnonymousCases = ({ queryKey }) => {
   const [, { params }] = queryKey;
 
   return client
-    .get(`/anonymous-cases?${params.toString()}`)
+    .get(`/anonymous-case?${params.toString()}`)
     .then(async (res) => {
       return [res.data.data, res.data.message, res.status, res.data.total];
     })
