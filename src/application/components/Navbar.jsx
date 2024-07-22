@@ -33,7 +33,7 @@ export function Navbar({ role }) {
         <div className="max-w-[100px] hidden sm:block">
           <h2 className="text-3xl text-center font-bold">DAEM</h2>
           <p className="text-[7px] text-center">
-            Denuncias Anonimas contra explotacion de menores
+            {isAdmin ? 'ADMINISTRATION' : 'Denuncias Anonimas contra explotacion de menores'}
           </p>
         </div>
         <div className="border h-[60px]" />
@@ -56,10 +56,10 @@ function TopBarButtons({ role }) {
   const isAnonymous = role === "anonymous";
   const isLogin = role === "";
 
-  // const { user } = useAuthService();
+  const { user, setUser } = useAuthService();
 
-  // const iName = user.name ? user.name[0] : '';
-  // const iLastname = user.lastname ? user.lastname[0] : '';
+  const iName = user.name ? user.name[0] : '';
+  const iLastname = user.lastname ? user.lastname[0] : '';
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -67,7 +67,8 @@ function TopBarButtons({ role }) {
     setDropdownOpen(!dropdownOpen);
   };
   const handleLogout = () => {
-    // localStorage.removeItem("token");
+    setUser(null);
+    localStorage.removeItem("token");
   };
 
   return (
@@ -112,7 +113,7 @@ function TopBarButtons({ role }) {
         style={{ display: isAnonymous || isLogin ? 'none' : 'block' }}
         className="border bg-black px-2 py-1 size-[calc(120px/3)] cursor-pointer rounded-full"
       >
-        {/* <span className="text-sm font-bold">{iName}{iLastname}</span> */}
+        <span className="text-sm font-bold">{iName}{iLastname}</span>
       </button>
       {dropdownOpen && (
         <div className="absolute z-20 right-0 mt-32 mr-2 w-52 bg-white border shadow-lg border-none">
