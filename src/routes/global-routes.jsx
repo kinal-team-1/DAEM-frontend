@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
                 ],
               },
               {
-                path: "",
+                path: "admin",
                 element: <PrivateAdminRoute />,
                 children: [
                   {

@@ -12,7 +12,7 @@ export function PrivateAdminRoute() {
   }
   if (!user) return <Navigate to="./login" />;
 
-  if (user.role === "user") return <Navigate to={`/${locale}/admin`} />;
+  if (user.role === "user") return <Navigate to={`/${locale}/public-case`} />;
 
   return <Outlet />;
 }
