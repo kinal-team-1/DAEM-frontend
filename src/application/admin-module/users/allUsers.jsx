@@ -5,6 +5,7 @@ import { Pagination } from "../../client-module/pages/public-case/components/Pag
 import { getUsers } from "../../actions/GET/get-users.js"
 import { ListUsers } from "../components/ListUsers.jsx";
 import { useLocaleService } from "../../../services/locale.jsx";
+import { Tabs } from "../../client-module/pages/public-case/publicCase.jsx";
 
 export function AllUsers() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +20,14 @@ export function AllUsers() {
     {},
   );
 
-  //   const isListTab = searchParams.get("tab") === "list";
+  const isUsersTab = searchParams.get("tab") === "list";
+
+  useEffect(() => {
+    if (["list"].includes(searchParams.get("tab"))) return;
+
+    searchParams.set("tab", "list");
+    setSearchParams(new URLSearchParams(searchParams));
+  }, [location]);
 
   const {
     data: [users, message, _, total] = [],
@@ -38,14 +46,13 @@ export function AllUsers() {
   console.log({ users });
 
   return (
-    <div className="flex flex-col relative grow h-full">
-      {/* <Tabs isListTab={isListTab} />{is} */}
-      <div className="grow flex flex-col overflow-y-scroll">
-        <ListUsers loading={isLoading} publicCases={users} />
-        {/* <div className="flex justify-center">
-          <Pagination total={total} />
-        </div> */}
-      </div>
+    <div className="flex flex-col relative grow  h-full">
+      <Tabs isUsersTab={isUsersTab} />
+      {isUsersTab && (
+        <div className="grow flex flex-col overflow-y-scroll">
+          <ListUsers loading={isLoading} users={users} />
+        </div>
+      )}
     </div>
   );
 }

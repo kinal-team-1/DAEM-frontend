@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-import { UserCard } from "./UserCard";
+import { UserCard } from "./UserCard.jsx";
 
 export function ListUsers({ loading, users }) {
   return (
@@ -11,11 +11,10 @@ export function ListUsers({ loading, users }) {
               <UserCard
                 key={us._id}
                 name={us.name}
-                lastname={us.lastnam}
+                lastname={us.lastname}
                 email={us.email}
                 DPI={us.DPI}
-                phone_number={phone_number}
-                className="bg-black/70 text-white"
+                phone_number={us.phone_number}
               />
             );
           })}
@@ -30,9 +29,9 @@ export function ListUsers({ loading, users }) {
   );
 }
 
-ListUsers.prototype = {
+ListUsers.propTypes = {
   loading: PropTypes.bool,
-  publicCases: PropTypes.arrayOf(
+  users: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string,
       name: PropTypes.string,

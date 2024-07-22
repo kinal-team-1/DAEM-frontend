@@ -82,12 +82,12 @@ export function PublicCase() {
   );
 }
 
-function Tabs({ isListTab, isMapTab }) {
+export function Tabs({ isListTab, isMapTab, isUsersTab }) {
   const [searchParams] = useSearchParams();
   const { LL } = useLocaleService();
 
   return (
-    <div className="grid grid-cols-2 text-white relative">
+    <div className="grid grid-cols-3 text-white relative">
       <Link
         to={`./?${addQueryParams(searchParams, "options")}`}
         className="absolute z-10 -bottom-10 right-0 mr-10 text-white text-3xl"
@@ -110,6 +110,15 @@ function Tabs({ isListTab, isMapTab }) {
           className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
         >
           {LL?.PAGES.PUBLIC_CASES.TABS.MAP()}
+        </Link>
+      </div>
+      <div className="col-span-1">
+        <Link
+          to="/es/user"
+          data-is-selected={isUsersTab || null}
+          className="button py-5 flex justify-center items-center bg-black data-[is-selected]:border-b border-b-green-400 data-[is-selected]:text-green-400"
+        >
+          USERS
         </Link>
       </div>
     </div>
