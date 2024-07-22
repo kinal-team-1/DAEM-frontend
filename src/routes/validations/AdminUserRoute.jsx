@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuthService } from "../../services/auth";
 import { SUPPORTED_LANGUAGES } from "../../config";
+import { NotEnoughPermissionPage } from "../../application/shared/pages/not-enough-permissions-page/NotEnoughPermissionPage";
 
 export function PrivateAdminRoute() {
   const { user } = useAuthService();
@@ -12,7 +13,7 @@ export function PrivateAdminRoute() {
   }
   if (!user) return <Navigate to="./login" />;
 
-  if (user.role === "user") return <Navigate to={`/${locale}/public-case`} />;
+  if (user.role === "user") return <NotEnoughPermissionPage />;
 
   return <Outlet />;
 }

@@ -65,7 +65,6 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     path: "",
-                    element: <Layout />,
                     children: [...adminRoutes],
                   },
                 ],
