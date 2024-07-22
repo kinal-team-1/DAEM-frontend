@@ -8,5 +8,10 @@ import { handleGenericError } from "../handle-generic-error";
  * @throws {ClientError | ServerError | FetchError}
  */
 export const createPublicCase = (publicCase) => {
-  return client.post("public-case", publicCase).catch(handleGenericError);
+  return client
+    .post("public-case", publicCase)
+    .then((res) => {
+      return [res.data.data, res.data.message, res.status];
+    })
+    .catch(handleGenericError);
 };
