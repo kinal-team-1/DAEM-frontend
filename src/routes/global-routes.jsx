@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
           const [user] = await validateToken(token);
           if (!user) return redirect(`${locale}/login`);
 
-          if (user.role === "admin") return redirect(`/${locale}/admin`);
+          if (user.role === "admin") return redirect(`/${locale}/admin/user`);
 
           return redirect(`/${locale}/public-case`);
         },
