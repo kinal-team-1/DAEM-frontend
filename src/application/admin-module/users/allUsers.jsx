@@ -5,7 +5,7 @@ import { Pagination } from "../../client-module/pages/public-case/components/Pag
 import { getUsers } from "../../actions/GET/get-users.js"
 import { ListUsers } from "../components/ListUsers.jsx";
 import { useLocaleService } from "../../../services/locale.jsx";
-import { Tabs } from "../../client-module/pages/public-case/publicCase.jsx";
+// import { Tabs } from "../../client-module/pages/public-case/publicCase.jsx";
 
 export function AllUsers() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,12 +47,12 @@ export function AllUsers() {
 
   return (
     <div className="flex flex-col relative grow  h-full">
-      <Tabs isUsersTab={isUsersTab} />
-      {isUsersTab && (
-        <div className="grow flex flex-col overflow-y-scroll">
-          <ListUsers loading={isLoading} users={users} />
-        </div>
-      )}
+      {/* <Tabs isUsersTab={isUsersTab} /> */}
+      {/* {isUsersTab && ( */}
+      <div className="grow flex flex-col overflow-y-scroll">
+        <ListUsers loading={isLoading} users={users} />
+      </div>
+      {/* )} */}
     </div>
   );
 }

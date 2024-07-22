@@ -5,7 +5,7 @@ export function ListUsers({ loading, users }) {
   return (
     <div className="flex flex-col gap-3 items-center relative grow">
       {!loading && (
-        <div className="flex flex-col gap-3 h-full  no-scrollbar w-full max-w-[800px] py-10 px-3">
+        <div className="flex flex-col gap-3 h-full  no-scrollbar w-full max-w-[900px] py-10 px-3">
           {users.map((us) => {
             return (
               <UserCard
