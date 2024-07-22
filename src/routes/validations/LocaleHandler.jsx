@@ -1,6 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useLocaleService } from "../../services/locale";
+import { SUPPORTED_LANGUAGES } from "../../config";
 
 export function LocaleHandler() {
   const { locale } = useParams();
@@ -8,7 +9,9 @@ export function LocaleHandler() {
 
   useEffect(() => {
     if (locale !== currentLocale) {
-      console.log("setting locale", locale);
+      if (SUPPORTED_LANGUAGES.includes(locale)) {
+        localStorage.setItem("locale", locale);
+      }
       setLocale(locale);
     }
   }, [locale]);

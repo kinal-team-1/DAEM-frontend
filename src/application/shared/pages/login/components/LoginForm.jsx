@@ -23,7 +23,7 @@ export function LoginForm() {
     onSuccess: ([user, message, status, token]) => {
       localStorage.setItem("token", token);
       setUser(user);
-      navigate(`/${locale}/publish`);
+      navigate(`/${locale}/public-case`);
     },
   });
 

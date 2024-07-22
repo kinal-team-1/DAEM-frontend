@@ -8,18 +8,14 @@ export function UserValidation() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log({ user });
     async function checkUser() {
-      console.log({ user });
       if (user) return;
 
       const token = localStorage.getItem("token");
       if (!token) return;
 
       const [userData] = await validateToken(token);
-      console.log({ userData });
       if (userData) {
-        console.log("SETTING USER");
         setUser(userData);
       }
     }

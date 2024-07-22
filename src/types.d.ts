@@ -38,6 +38,7 @@ export type User = {
   lastname: string;
   DPI: string;
   phone_number: string;
+  role: string;
   _id?: string;
 }
 
