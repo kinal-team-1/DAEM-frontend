@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useParams } from "react-router-dom";
-import { Navbar } from "../../components/Navbar";
+import { Navbar } from "../components/Navbar";
 
-export function Layout() {
+export function AdminLayout() {
   const location = useLocation();
   const { locale } = useParams();
 
@@ -21,7 +21,7 @@ export function Layout() {
         />
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
-      <Navbar role="user" />
+      <Navbar role="admin" />
       <div className="overflow-hidden overflow-y-scroll grow no-scrollbar">
         <Outlet />
       </div>
