@@ -9,6 +9,7 @@ import { FileRender } from "./FileRender";
 import { DynamicTextArea } from "./DynamicTextArea";
 import { createContribution } from "../actions/POST/create-contribution";
 import { useAuthService } from "../../services/auth";
+import { useMutationWithToast } from "../hooks/use-mutation-with-toast";
 
 export function AttachmentInput({ publicCaseId }) {
   const [files, setFiles] = useState([]);
@@ -16,8 +17,7 @@ export function AttachmentInput({ publicCaseId }) {
   const [content, setContent] = useState("");
   const { user } = useAuthService();
 
-  const uploadFileMutation = useMutationwithToast({
-    mutationFn: uploadFile,
+  const uploadFileMutation = useMutationWithToast(uploadFile, {
     onSuccess: (data) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
 
@@ -29,9 +29,10 @@ export function AttachmentInput({ publicCaseId }) {
     },
   });
 
-  const createContributionMutation = useMutation({
-    mutationFn: createContribution,
-  });
+  const createContributionMutation = useMutationWithToast(
+    createContribution,
+    {},
+  );
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
