@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { Pagination } from "../../client-module/pages/public-case/components/Pagination.jsx";
-import { getUsers } from "../../actions/GET/get-users.js"
+import { useLocation, useSearchParams } from "react-router-dom";
+import { getUsers } from "../../actions/GET/get-users.js";
 import { ListUsers } from "../components/ListUsers.jsx";
-import { useLocaleService } from "../../../services/locale.jsx";
+
 // import { Tabs } from "../../client-module/pages/public-case/publicCase.jsx";
 
 export function AllUsers() {
@@ -22,12 +20,12 @@ export function AllUsers() {
 
   const isUsersTab = searchParams.get("tab") === "list";
 
-  useEffect(() => {
-    if (["list"].includes(searchParams.get("tab"))) return;
-
-    searchParams.set("tab", "list");
-    setSearchParams(new URLSearchParams(searchParams));
-  }, [location]);
+  // useEffect(() => {
+  //   if (["list"].includes(searchParams.get("tab"))) return;
+  //
+  //   searchParams.set("tab", "list");
+  //   setSearchParams(new URLSearchParams(searchParams));
+  // }, [location]);
 
   const {
     data: [users, message, _, total] = [],

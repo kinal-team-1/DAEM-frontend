@@ -15,6 +15,7 @@ export function ListUsers({ loading, users }) {
                 email={us.email}
                 DPI={us.DPI}
                 phone_number={us.phone_number}
+                id={us._id}
               />
             );
           })}
