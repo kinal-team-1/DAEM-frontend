@@ -21,7 +21,7 @@ export function Navbar({ role }) {
       <div className="flex gap-3">
         {/* <img className="size-[60px]" src={guatemalaShield} alt="" /> */}
         <Link
-          to={`/${isAnonymous ? '' : locale}/public-case`}
+          to={`/${isAnonymous ? "" : locale}/public-case`}
           className="max-w-[min(100%,60px)]"
         >
           <img
@@ -33,7 +33,9 @@ export function Navbar({ role }) {
         <div className="max-w-[100px] hidden sm:block">
           <h2 className="text-3xl text-center font-bold">DAEM</h2>
           <p className="text-[7px] text-center">
-            {isAdmin ? 'ADMINISTRATION' : 'Denuncias Anonimas contra explotacion de menores'}
+            {isAdmin
+              ? "ADMINISTRATION"
+              : "Denuncias Anonimas contra explotacion de menores"}
           </p>
         </div>
         <div className="border h-[60px]" />
@@ -66,20 +68,21 @@ function TopBarButtons({ role }) {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("token");
+    navigate(`/${locale}/login`);
   };
 
   return (
     <div className="flex gap-2 items-center text-sm">
       <Link
         to={`/${locale}/publish`}
-        style={{ display: isLogin || isAdmin ? 'none' : 'block' }}
+        style={{ display: isLogin || isAdmin ? "none" : "block" }}
         className="bg-black text-white  text-nowrap rounded-full px-5 py-3 flex justify-center"
       >
         Presentar caso
       </Link>
       <Link
         to={`/${locale}/admin/user`}
-        style={{ display: isAdmin ? 'block' : 'none' }}
+        style={{ display: isAdmin ? "block" : "none" }}
         className="bg-black text-white  text-nowrap rounded-full px-5 py-3 flex justify-center"
       >
         Usuarios
@@ -107,7 +110,7 @@ function TopBarButtons({ role }) {
         type="button"
         onClick={toggleDropdown}
         disabled={isAnonymous || isLogin}
-        style={{ display: isAnonymous || isLogin ? 'none' : 'block' }}
+        style={{ display: isAnonymous || isLogin ? "none" : "block" }}
         className="border bg-black px-2 py-1 size-[calc(120px/3)] cursor-pointer rounded-full"
       >
         <span className="text-sm font-bold">
@@ -119,12 +122,15 @@ function TopBarButtons({ role }) {
           <Link
             to={`/${locale}/edit-profile`}
             className="bg-vulcan-950  block p-3 text-md hover:bg-gray-600  font-bold"
-          >Profile</Link>
-          <Link
-            to={`/${locale}/login`}
+          >
+            Profile
+          </Link>
+          <button
             onClick={handleLogout}
-            className="bg-vulcan-950 block p-3 text-md hover:bg-red-500 font-bold"
-          >Log out</Link>
+            className="bg-vulcan-950 block p-3 text-md hover:bg-red-500 font-bold w-full"
+          >
+            Log out
+          </button>
         </div>
       )}
     </div>

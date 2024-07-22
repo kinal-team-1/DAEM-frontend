@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuthService } from "../../../../../services/auth";
 import { getPublicCasesByUserId } from "../../../../actions/GET/get-public-cases-by-user-id";
 import { PublicCaseCard } from "./PublicCaseCard";
 import { useLocaleService } from "../../../../../services/locale";
 
-export function ListPublicCases() {
-  const { user } = useAuthService();
+export function ListPublicCases({ user }) {
   const { LL } = useLocaleService();
 
   const {

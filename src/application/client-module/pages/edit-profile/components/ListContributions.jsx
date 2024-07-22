@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuthService } from "../../../../../services/auth";
 import { getContributionsByUserId } from "../../../../actions/GET/get-contributions-by-user-id";
 import { useLocaleService } from "../../../../../services/locale";
+import { ContributionCard } from "../../public-case-by-id/components/ContributionCard";
 
-export function ListContributions() {
-  const { user } = useAuthService();
+export function ListContributions({ user }) {
   const { LL } = useLocaleService();
 
   const {
@@ -29,19 +28,27 @@ export function ListContributions() {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log(contributions);
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 items-center">
       <h2 className="text-white text-2xl">
         {LL?.PAGES.EDIT_PROFILE.TABS.CONTRIBUTIONS.SUBTITLE()}
       </h2>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col max-w-[700px] gap-3">
         {contributions.map((contribution) => (
-          <div key={contribution._id} className="flex flex-col gap-2">
-            <span className="text-white text-lg">{contribution.title}</span>
-            <span className="text-white text-sm">
-              {contribution.description}
-            </span>
-          </div>
+          <ContributionCard
+            rowMode
+            // eslint-disable-next-line no-underscore-dangle
+            key={contribution._id}
+            // eslint-disable-next-line no-underscore-dangle
+            id={contribution._id}
+            user_id={contribution.user_id}
+            attachment={{ _id: contribution.attachment }}
+            content={contribution.content}
+            created_at={contribution.created_at}
+            case_id={contribution.case_id}
+            isLink
+          />
         ))}
         {contributions.length === 0 && (
           <div className="text-white py-10">

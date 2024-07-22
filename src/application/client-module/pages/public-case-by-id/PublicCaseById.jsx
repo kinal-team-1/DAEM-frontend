@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getPublicCaseById } from "../../../actions/GET/get-case-by-id";
 import { Image } from "../../../components/Image";
 import { AttachmentInput } from "../../../components/AttachmentInput";
-import { getContributionsByPublicCaseId } from "../../../actions/GET/get-contributions-by-public-case-id.js";
+import { getContributionsByPublicCaseId } from "../../../actions/GET/get-contributions-by-public-case-id";
+import { ContributionCard } from "./components/ContributionCard.jsx";
 
 export function PublicCaseById() {
   const { id } = useParams();
@@ -77,34 +78,16 @@ function ListContributions({ id }) {
   return (
     <div className="w-full h-full flex flex-col gap-2">
       {contributions.map((contribution) => (
-        <div
+        <ContributionCard
           // eslint-disable-next-line no-underscore-dangle
           key={contribution._id}
-          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2"
-        >
-          <div className="flex justify-between items-center">
-            <div className="flex gap-2">
-              <span>{contribution.user_id.name}</span>
-              <span>{contribution.user_id.lastname}</span>
-            </div>
-            <span className="text-xs">
-              {Intl.DateTimeFormat("es-ES", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              }).format(new Date(contribution.created_at))}
-            </span>
-          </div>
-          <div className="text-xs flex flex-col gap-2 h-[200px]">
-            <div className="rounded grow overflow-hidden">
-              <Image showLength={false} attachment={contribution.attachment} />
-            </div>
-            <div>{contribution.content}</div>
-          </div>
-        </div>
+          // eslint-disable-next-line no-underscore-dangle
+          id={contribution._id}
+          user_id={contribution.user_id}
+          attachment={contribution.attachment}
+          content={contribution.content}
+          created_at={contribution.created_at}
+        />
       ))}
     </div>
   );
