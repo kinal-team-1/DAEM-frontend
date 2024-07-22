@@ -10,6 +10,13 @@ export type Location = {
   longitude: number;
 }
 
+export type Contribution = {
+  user_id: string,
+  case_id: string,
+  content: string,
+  filepaths: string[],
+}
+
 export type PublicCase = {
   title: string;
   description: string;

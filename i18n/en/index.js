@@ -8,30 +8,17 @@ import { login } from "./client/login";
 import { signup } from "./client/signup";
 import { publish } from "./client/publish";
 import { editProfile } from "./client/edit-profile";
+import { publicCases } from "./client/public-cases";
 
 /** @satisfies { BaseTranslation } */
 const en = {
   // TODO: your translations go here
   PAGES: {
-    SERVICE: {
-      NAME: "Name",
-      DESCRIPTION: "Description",
-      PRICE: "Price",
-    },
-    FAVORITE_ACCOUNT: {
-      ACCOUNT: "Account",
-      OWNER: "Owner",
-      ALIAS: "alias",
-    },
-    PUBLICATIONS: {
-      SUBMITTER: "submitter",
-      TITLE: "Title",
-      DESCRIPTION: "Description",
-    },
     LOGIN: login,
     SIGNUP: signup,
     PUBLISH: publish,
     EDIT_PROFILE: editProfile,
+    PUBLIC_CASES: publicCases,
   },
 };
 

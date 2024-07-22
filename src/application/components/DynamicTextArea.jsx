@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
-export function DynamicTextArea(props) {
-  const [value, setValue] = useState("");
+export function DynamicTextArea({ value, setValue, ...props }) {
   const [isOverflow, setIsOverflow] = useState(false);
   const textareaRef = useRef(null);
   const adjustHeight = () => {
@@ -41,8 +40,6 @@ export function DynamicTextArea(props) {
 }
 
 DynamicTextArea.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
   rows: PropTypes.number,
 };

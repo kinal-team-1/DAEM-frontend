@@ -124,6 +124,5 @@ FileDrop.propTypes = {
   // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
   onFileAdded: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
   files: PropTypes.arrayOf(PropTypes.shape({})),
 };

@@ -9,9 +9,10 @@ import { handleGenericError } from "../handle-generic-error";
  */
 export const getPublicCase = ({ queryKey }) => {
   const [, { params }] = queryKey;
+  const searchParams = new URLSearchParams(params);
 
   return client
-    .get(`/public-case?${params.toString()}`)
+    .get(`/public-case?${searchParams.toString()}`)
     .then(async (res) => {
       return [res.data.data, res.data.message, res.status, res.data.total];
     })
