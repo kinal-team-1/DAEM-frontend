@@ -12,7 +12,8 @@ import { Layout } from "../application/client-module/pages/Layout";
 import { userRoutes } from "./user-routes";
 import { LocaleHandler } from "./validations/LocaleHandler";
 import { PrivateAdminRoute } from "./validations/AdminUserRoute";
-import { AdminLayout } from "../application/admin-module/AdminLayout.jsx";
+import { AdminLayout } from "../application/admin-module/AdminLayout";
+import { ViewProfile } from "../application/shared/pages/view-profile/ViewProfile";
 
 export const router = createBrowserRouter([
   {
@@ -32,10 +33,9 @@ export const router = createBrowserRouter([
           const token = localStorage.getItem("token");
           if (!token) return redirect(`${locale}/login`);
           const [user] = await validateToken(token);
-          console.log({ user, token });
           if (!user) return redirect(`${locale}/login`);
 
-          if (user.role === "admin") return redirect(`/${locale}/admin`);
+          if (user.role === "admin") return redirect(`/${locale}/admin/user`);
 
           return redirect(`/${locale}/public-case`);
         },
@@ -78,6 +78,16 @@ export const router = createBrowserRouter([
               {
                 path: "login",
                 element: <Login />,
+              },
+              {
+                path: "user/:userId",
+                element: <Layout alternativeBackground />,
+                children: [
+                  {
+                    path: "",
+                    element: <ViewProfile />,
+                  },
+                ],
               },
             ],
           },

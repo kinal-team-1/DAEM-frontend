@@ -41,8 +41,6 @@ export function AllUsers() {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log({ users });
-
   return (
     <div className="flex flex-col relative grow  h-full">
       {/* <Tabs isUsersTab={isUsersTab} /> */}

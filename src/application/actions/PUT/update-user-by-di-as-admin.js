@@ -3,15 +3,12 @@ import { handleGenericError } from "../handle-generic-error";
 
 /**
  *
- * @param {Object} queryKey
  * @returns {Promise<any>}
  * @throws {ClientError | ServerError | FetchError}
  */
-export const getContributionsByPublicCaseId = ({ queryKey }) => {
-  const [, { publicCase }] = queryKey;
-
+export const editProfile = (profileData) => {
   return client
-    .get(`/contribution/by-public-case/${publicCase}`)
+    .put(`user/as-admin/${profileData.userId}`, profileData)
     .then((res) => [res.data.data, res.data.message, res.status])
     .catch(handleGenericError);
 };

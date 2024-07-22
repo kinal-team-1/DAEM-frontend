@@ -15,7 +15,6 @@ import { EMAILJS_PUBLIC_KEY } from "../../../../../config";
 const serviceId = "service_y54jrim";
 const templateId = "template_c1oyw3b";
 export function KeyModal({ outsideClick, onSubmit, onCancel, anonymousCase }) {
-  console.log(anonymousCase);
   const { key } = anonymousCase;
   const [clipboardStatus, setClipboardStatus] = useState("idle");
   const [emailStatus, setEmailStatus] = useState("idle");

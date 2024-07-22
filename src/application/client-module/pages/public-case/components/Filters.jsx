@@ -42,7 +42,6 @@ export function Filters({ className, isOpen }) {
   }, [hasLocation]);
 
   useEffect(() => {
-    console.log({ page, limit });
     if (radius && hasLocation) newSearchParams.set("radius", radius);
     if (lat && hasLocation) newSearchParams.set("lat", `${lat}`);
     if (long && hasLocation) newSearchParams.set("long", `${long}`);
@@ -188,9 +187,7 @@ function MapContext({ lat, long }) {
   const map = useMap();
   useEffect(() => {
     if (!lat || !long) return;
-    console.log(map);
 
-    console.log(lat, long);
     map.flyTo([lat, long], map.getZoom());
   }, [lat, long]);
 

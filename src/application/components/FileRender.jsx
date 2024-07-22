@@ -18,9 +18,7 @@ export function FileRender({ file, isLoading: isImageLoading, onFileDeleted }) {
     onSuccess: () => {
       onFileDeleted(file);
     },
-    onError: (error) => {
-      console.error(error);
-    },
+    onError: (error) => {},
   });
 
   useEffect(() => {

@@ -8,6 +8,7 @@ export function PublicCaseCard({
   reported_at,
   attachment,
   className,
+  submitter,
 }) {
   const { locale } = useParams();
 
@@ -24,6 +25,12 @@ export function PublicCaseCard({
           <p className="line-clamp-4 text-xs w-full overflow-hidden">
             {description}
           </p>
+          <Link
+            className="text-green-400 underline"
+            to={`/${locale}/user/${submitter._id}`}
+          >
+            {submitter.name}
+          </Link>
         </div>
         <div className="flex flex-wrap gap-3 justify-between items-center">
           <span className="text-xs">

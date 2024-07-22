@@ -2,6 +2,7 @@ import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 // import { useMutation } from "@tanstack/react-query";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { uploadFile } from "../actions/POST/upload-file";
@@ -16,23 +17,24 @@ export function AttachmentInput({ publicCaseId }) {
   const [loadedFiles, setLoadedFiles] = useState(new Set());
   const [content, setContent] = useState("");
   const { user } = useAuthService();
+  const queryClient = useQueryClient();
 
   const uploadFileMutation = useMutationWithToast(uploadFile, {
     onSuccess: (data) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
-
-      console.log({ uploadFileResponse, uploadFileMessage, uploadFileStatus });
     },
     onError: (error) => {
-      console.error(error);
       setFiles((prevFiles) => prevFiles.slice(0, -1));
     },
   });
 
-  const createContributionMutation = useMutationWithToast(
-    createContribution,
-    {},
-  );
+  const createContributionMutation = useMutationWithToast(createContribution, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["contribution"],
+      });
+    },
+  });
 
   const onDrop = useCallback(async (acceptedFiles) => {
     // Do something with the files
@@ -79,12 +81,14 @@ export function AttachmentInput({ publicCaseId }) {
         e.preventDefault();
         if (!createContributionMutation.isIdle) return;
 
+        const filesToUpload = [...loadedFiles];
+
         createContributionMutation.mutate({
           content,
           // eslint-disable-next-line no-underscore-dangle
           user_id: user._id,
           case_id: publicCaseId,
-          filepaths: [...loadedFiles],
+          ...(filesToUpload.length > 0 && { filepaths: filesToUpload }),
         });
       }}
       className="flex flex-col gap-2"
@@ -145,7 +149,6 @@ export function AttachmentInput({ publicCaseId }) {
         </button>
         <button
           type="submit"
-          {...getRootProps()}
           className="rounded-full px-5 py-2 bg-white text-black flex gap-2 items-center"
         >
           <span>APORTAR</span>

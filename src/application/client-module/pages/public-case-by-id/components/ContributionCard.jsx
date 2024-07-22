@@ -16,10 +16,13 @@ export function ContributionCard({
   const jsxContent = (
     <>
       <div className="flex justify-between items-center">
-        <div className="flex gap-2">
+        <Link
+          to={`/${locale}/user/${user_id._id}`}
+          className="flex gap-2 text-green-400 underline"
+        >
           <span>{user_id.name}</span>
           <span>{user_id.lastname}</span>
-        </div>
+        </Link>
         <span className="text-xs">
           {Intl.DateTimeFormat("es-ES", {
             year: "numeric",
@@ -39,7 +42,12 @@ export function ContributionCard({
           data-row-mode={rowMode || null}
           className="rounded grow h-full overflow-hidden data-[row-mode]:px-5 sm:data-[row-mode]:w-[300px] sm:data-[row-mode]:shrink-0"
         >
-          <Image showLength={false} attachment={attachment} />
+          {attachment && <Image attachment={attachment} />}
+          {!attachment && (
+            <div className="w-full h-full border border-2 border-dashed flex flex-col justify-center items-center">
+              <span className="text-xl">No Attachments</span>
+            </div>
+          )}
         </div>
         <div data-row-mode={rowMode || null} className="data-[row-mode]:py-4">
           {content}

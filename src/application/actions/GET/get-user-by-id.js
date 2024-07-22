@@ -7,11 +7,11 @@ import { handleGenericError } from "../handle-generic-error";
  * @returns {Promise<any>}
  * @throws {ClientError | ServerError | FetchError}
  */
-export const getContributionsByPublicCaseId = ({ queryKey }) => {
-  const [, { publicCase }] = queryKey;
+export const getUserById = ({ queryKey }) => {
+  const [, id] = queryKey;
 
   return client
-    .get(`/contribution/by-public-case/${publicCase}`)
+    .get(`/user/${id}`)
     .then((res) => [res.data.data, res.data.message, res.status])
     .catch(handleGenericError);
 };

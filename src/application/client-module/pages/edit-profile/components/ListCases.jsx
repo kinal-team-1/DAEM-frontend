@@ -43,6 +43,7 @@ export function ListPublicCases({ user }) {
             reported_at={pubCase.reported_at}
             id={pubCase._id}
             attachment={pubCase.attachment}
+            submitter={pubCase.submitter}
           />
         ))}
         {publicCases.length === 0 && (
