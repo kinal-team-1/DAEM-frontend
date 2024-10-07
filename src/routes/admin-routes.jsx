@@ -1,20 +1,13 @@
-import { ContextWrapper } from "../App";
-import { DarkModeProvider } from "../services/dark-mode";
+import { AllUsers } from "../application/admin-module/users/allUsers";
+import { AnonymousCase } from "../application/admin-module/anonymous-case/anonymous-case";
 
 export const adminRoutes = /** @type import("react-router-dom").RouteObject */ [
   {
-    path: "/:locale",
-    element: <ContextWrapper />,
-    children: [
-      {
-        path: "",
-        element: <div>Hi</div>,
-      },
-    ],
+    path: "user",
+    element: <AllUsers />,
   },
-  // MUST BE LAST ALWAYS
   {
-    path: "*",
-    element: <DarkModeProvider>{/* <NotFound /> */}</DarkModeProvider>,
+    path: "anonymous-case",
+    element: <AnonymousCase />,
   },
 ];

@@ -39,5 +39,7 @@ module.exports = {
     ],
     // 2 space identation
     indent: ["error", 2],
+    "react/require-default-props": "off",
+
   },
 };

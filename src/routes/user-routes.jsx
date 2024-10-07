@@ -1,21 +1,28 @@
-import { ContextWrapper } from "../App";
-import { DarkModeProvider } from "../services/dark-mode";
-import { Home } from "../application/pages/home/Home.jsx";
+import { Home } from "../application/client-module/pages/home/Home";
+import { Publish } from "../application/client-module/pages/publish/Publish";
+import { PublicCaseById } from "../application/client-module/pages/public-case-by-id/PublicCaseById";
+import { PublicCase } from "../application/client-module/pages/public-case/publicCase";
+import { EditProfile } from "../application/client-module/pages/edit-profile/EditProfile";
 
 export const userRoutes = /** @type import("react-router-dom").RouteObject */ [
   {
-    path: "/:locale",
-    element: <ContextWrapper />,
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-    ],
+    path: "",
+    element: <Home />,
   },
-  // MUST BE LAST ALWAYS
   {
-    path: "*",
-    element: <DarkModeProvider>{/* <NotFound /> */}</DarkModeProvider>,
+    path: "publish",
+    element: <Publish />,
+  },
+  {
+    path: "public-case/:id",
+    element: <PublicCaseById />,
+  },
+  {
+    path: "public-case",
+    element: <PublicCase />,
+  },
+  {
+    path: "edit-profile",
+    element: <EditProfile />,
   },
 ];

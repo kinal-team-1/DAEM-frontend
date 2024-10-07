@@ -4,37 +4,21 @@
  * @typedef { import('../i18n-types.js').BaseTranslation } BaseTranslation
  */
 
+import { login } from "./client/login";
+import { signup } from "./client/signup";
+import { publish } from "./client/publish";
+import { editProfile } from "./client/edit-profile";
+import { publicCases } from "./client/public-cases";
+
 /** @satisfies { BaseTranslation } */
 const en = {
   // TODO: your translations go here
-  HI: "Hi {name:string}!",
-  TITLE: "Hello World!",
-  NAVBAR: {
-    HOME: "Home",
-    SERVICES: "Services",
-    MOVEMENTS: "Movements",
-    CURRENCIES: "Currencies",
-    LOG_OUT: "Log out",
-    FAVORITE_ACCOUNTS: "Favorite Accounts",
-  },
-  ERROR: {
-    SOMETHING_WENT_WRONG: "Something went wrong",
-    PLEASE_TRY_AGAIN_LATER: "Please try again later",
-  },
-  TOAST: {
-    SUCCESS: "Success",
-  },
   PAGES: {
-    SERVICE: {
-      NAME: "Name",
-      DESCRIPTION: "Description",
-      PRICE: "Price",
-    },
-    FAVORITE_ACCOUNT: {
-      ACCOUNT: "Account",
-      OWNER: "Owner",
-      ALIAS: "alias",
-    },
+    LOGIN: login,
+    SIGNUP: signup,
+    PUBLISH: publish,
+    EDIT_PROFILE: editProfile,
+    PUBLIC_CASES: publicCases,
   },
 };
 
