@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { DropDown } from "./DropDown";
 import { SUPPORTED_LANGUAGES } from "../../config";
 import logo from "../../assets/logo.png";
@@ -135,3 +136,7 @@ function TopBarButtons({ role }) {
     </div>
   );
 }
+
+Navbar.propTypes = {
+  role: PropTypes.string.isRequired,
+};

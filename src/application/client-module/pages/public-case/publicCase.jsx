@@ -59,6 +59,8 @@ export function PublicCase() {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log({ publicCases });
+
   return (
     <div className="flex flex-col relative grow h-full">
       <Tabs isMapTab={isMapTab} isListTab={isListTab} />

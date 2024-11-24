@@ -6,6 +6,7 @@ import { Marker, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import PropTypes from "prop-types";
 import { MapComponent } from "../../../../components/MapReact.jsx";
+import { useLocaleService } from "../../../../../services/locale.jsx";
 
 const iconRed = new Icon({
   iconUrl: "/marker-icon-red.png",
@@ -14,13 +15,19 @@ const iconRed = new Icon({
 });
 
 export function MapTab({ publicCases }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { locale } = useLocaleService();
+  const [searchParams] = useSearchParams();
   const [coordinates, setCoordinates] = useState([
     searchParams.get("lat"),
     searchParams.get("long"),
   ]);
   const [lat, long] = coordinates;
   const radius = searchParams.get("radius");
+
+  useEffect(() => {
+    setCoordinates([searchParams.get("lat"), searchParams.get("long")]);
+  }, [searchParams.get("lat"), searchParams.get("long")]);
+
   useEffect(() => {
     if (lat && long) return;
 
@@ -65,7 +72,7 @@ export function MapTab({ publicCases }) {
                       </div>
                       <Link
                         // eslint-disable-next-line no-underscore-dangle
-                        to={`/public-case/${pub._id}`}
+                        to={`${pub._id}`}
                         className="text-2xl text-green-400"
                       >
                         <FontAwesomeIcon icon={faChevronRight} />

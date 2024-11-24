@@ -77,18 +77,22 @@ function ListContributions({ id }) {
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
-      {contributions.map((contribution) => (
-        <ContributionCard
-          // eslint-disable-next-line no-underscore-dangle
-          key={contribution._id}
-          // eslint-disable-next-line no-underscore-dangle
-          id={contribution._id}
-          user_id={contribution.user_id}
-          attachment={contribution.attachment}
-          content={contribution.content}
-          created_at={contribution.created_at}
-        />
-      ))}
+      {contributions.map((contribution) => {
+        console.log({ attachment: contribution.attachment, contribution });
+
+        return (
+          <ContributionCard
+            // eslint-disable-next-line no-underscore-dangle
+            key={contribution._id}
+            // eslint-disable-next-line no-underscore-dangle
+            id={contribution._id}
+            user_id={contribution.user_id}
+            attachment={contribution.attachment}
+            content={contribution.content}
+            created_at={contribution.created_at}
+          />
+        );
+      })}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
+  faFaceSadTear,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
@@ -13,7 +14,11 @@ export function Image({ attachment, showLength = true }) {
   const counter = useRef(0);
   const [areImagesLoaded, setAreImagesLoaded] = useState(false);
   const [current, setCurrent] = useState(0);
-  const { data: [images] = [], isLoading } = useQuery({
+  const {
+    data: [images] = [],
+    isLoading,
+    isError,
+  } = useQuery({
     // eslint-disable-next-line react/prop-types,no-underscore-dangle
     queryKey: ["image", attachment._id],
     queryFn: getAttachments,
@@ -24,6 +29,15 @@ export function Image({ attachment, showLength = true }) {
   if (isLoading) {
     return <div className="bg-gray-400 w-full animate-pulse h-full" />;
   }
+
+  if (isError) {
+    return (
+      <div className="bg-gray-400 w-full h-full flex justify-center items-center">
+        <FontAwesomeIcon icon={faFaceSadTear} className="text-3xl" />
+      </div>
+    );
+  }
+  console.log({ images, isLoading });
 
   return (
     <div className="flex w-full h-full grow relative overflow-hidden items-center">
@@ -84,4 +98,5 @@ export function Image({ attachment, showLength = true }) {
 
 Image.propTypes = {
   attachment: PropTypes.shape({}).isRequired,
+  showLength: PropTypes.bool,
 };

@@ -19,7 +19,12 @@ import { removeStaleFile } from "../actions/DELETE/remove-stale-file";
  * @returns {React.ReactElement}
  */
 
-export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
+export function FileDrop({
+  className,
+  onFileAdded,
+  files: filesLoaded,
+  onFileFailed,
+}) {
   const [files, setFiles] = useState(filesLoaded);
   const [loadedFiles, setLoadedFiles] = useState(
     new Set(filesLoaded.map((f) => f.name)),
@@ -31,7 +36,11 @@ export function FileDrop({ className, onFileAdded, files: filesLoaded }) {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
       onFileAdded(file);
     },
-    onError: (error) => {},
+    onError: (error, file) => {
+      // show toaster
+      setFiles((prev) => prev.filter((f) => f.name !== file.name));
+      onFileFailed(file);
+    },
   });
 
   const removeMutation = useMutation({
@@ -117,5 +126,6 @@ FileDrop.propTypes = {
   // eslint-disable-next-line react/require-default-props
   className: PropTypes.string,
   onFileAdded: PropTypes.func.isRequired,
+  onFileFailed: PropTypes.func.isRequired,
   files: PropTypes.arrayOf(PropTypes.shape({})),
 };

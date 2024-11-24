@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://daem-backend.onrender.com/api";
+export const API_URL = "http://localhost:3000/api";
 export const SUPPORTED_LANGUAGES = ["en", "es"];
 
 export const EMAILJS_PUBLIC_KEY = "OV924hAIzB0XqlqCv";

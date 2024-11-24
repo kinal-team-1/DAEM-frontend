@@ -30,7 +30,7 @@ export function AttachmentInput({ publicCaseId }) {
     mutationFn: createContribution,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["contribution"],
+        queryKey: ["contributions"],
       });
     },
   });
@@ -87,7 +87,7 @@ export function AttachmentInput({ publicCaseId }) {
           // eslint-disable-next-line no-underscore-dangle
           user_id: user._id,
           case_id: publicCaseId,
-          ...(filesToUpload > 0 && { filepaths: filesToUpload }),
+          ...(filesToUpload.length > 0 && { filepaths: filesToUpload }),
         });
       }}
       className="flex flex-col gap-2"
@@ -102,14 +102,19 @@ export function AttachmentInput({ publicCaseId }) {
             placeholder="hola"
             onPaste={(e) => {
               const { files: pastedFiles } = e.clipboardData;
+              console.log({ pastedFiles });
 
               // eslint-disable-next-line no-restricted-syntax
-              for (const file of pastedFiles) {
-                file.path = file.name;
-                uploadFileMutation.mutateAsync(file).then((_) => {
-                  setLoadedFiles((prev) => new Set(prev.add(file.name)));
+              for (const originalFile of pastedFiles) {
+                const name = `pasted__${new Date().toISOString()}__${Math.round(Math.random() * 1000)}`;
+                const renamedFile = new File([originalFile], name, {
+                  type: originalFile.type,
                 });
-                setFiles((prevFiles) => [...prevFiles, file]);
+                // renamedFile.path = name;
+                uploadFileMutation.mutateAsync(renamedFile).then((_) => {
+                  setLoadedFiles((prev) => new Set(prev.add(renamedFile.name)));
+                });
+                setFiles((prevFiles) => [...prevFiles, renamedFile]);
               }
             }}
           />
