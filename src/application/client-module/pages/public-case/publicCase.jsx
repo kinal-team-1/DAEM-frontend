@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -14,6 +14,8 @@ import { useLocaleService } from "../../../../services/locale.jsx";
 
 export function PublicCase() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const zoom = useRef(NaN);
+  console.log({ zoom: zoom.current });
   const isOptionsOpen = searchParams.has("options");
   const location = useLocation();
   const mapSearchParams = [...searchParams.entries()].reduce(
@@ -77,7 +79,7 @@ export function PublicCase() {
         isOpen={isOptionsOpen}
         className="absolute z-[1000] right-0 transition ease-in-out translate-x-full data-[is-open]:translate-x-0"
       />
-      {isMapTab && <MapTab publicCases={publicCases} />}
+      {isMapTab && <MapTab publicCases={publicCases} zoom={zoom} />}
     </div>
   );
 }

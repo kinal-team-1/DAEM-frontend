@@ -17,6 +17,8 @@ const iconBlue = new Icon({
  * @property {boolean} [isMarkerDraggable]
  * @property {React.ReactNode} [children]
  * @property {(e: L.DragEndEvent) => void} [onMarkerDrag]
+ * @property {number} [defaultZoom]
+ * @property {number} [zoom]
  */
 
 /**
@@ -29,11 +31,13 @@ export function MapComponent({
   children,
   isMarkerDraggable = true,
   onMarkerDrag,
+  defaultZoom = 16,
+  zoom,
 }) {
   return (
     <MapContainer
       center={[lat, long]}
-      zoom={16}
+      zoom={zoom || defaultZoom}
       scrollWheelZoom
       className={className}
     >
@@ -78,4 +82,6 @@ MapComponent.propTypes = {
   isMarkerDraggable: PropTypes.bool,
   radius: PropTypes.number,
   onMarkerDrag: PropTypes.func,
+  defaultZoom: PropTypes.number,
+  zoom: PropTypes.number,
 };

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPublicCaseById } from "../../../actions/GET/get-case-by-id";
-import { Image } from "../../../components/Image";
 import { AttachmentInput } from "../../../components/AttachmentInput";
 import { getContributionsByPublicCaseId } from "../../../actions/GET/get-contributions-by-public-case-id";
-import { ContributionCard } from "./components/ContributionCard.jsx";
+import { ContributionCard } from "./components/ContributionCard";
+import { Image } from "../../../components/Image";
 
 export function PublicCaseById() {
   const { id } = useParams();
@@ -23,13 +23,13 @@ export function PublicCaseById() {
   }
 
   return (
-    <div className="flex flex-col overflow-y-scroll no-scrollbar md:grid grid-cols-5 w-full h-full text-white">
-      <div className="col-span-3 h-full shrink-0 bg-[#1b1a1a] flex flex-col gap-5 py-5 sm:px-20 px-4 md:px-10 lg:px-32">
-        <h1 className="text-4xl">{publicCase.title}</h1>
-        <div className="w-full grow h-[max(200px,40%)] shrink-0">
+    <div className="flex flex-col no-scrollbar md:grid grid-cols-5 w-full h-full text-white grow-0">
+      <div className="col-span-3 shrink-0 bg-[#1b1a1a] flex flex-col gap-5 py-5 sm:px-20 px-4 md:px-10 lg:px-32 overflow-y-hidden">
+        <h1 className="text-4xl shrink-0">{publicCase.title}</h1>
+        <div className="grow ">
           <Image showLength={false} attachment={publicCase.attachment} />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col shrink-0">
           <p className="flex gap-2 text-2xl">
             <span>{publicCase.submitter.name}</span>
             <span> {publicCase.submitter.lastname}</span>
@@ -38,14 +38,14 @@ export function PublicCaseById() {
           <div>{publicCase.reported_at}</div>
         </div>
 
-        <p className="">{publicCase.description}</p>
+        <p className="shrink-0">{publicCase.description}</p>
       </div>
-      <div className="col-span-2 h-full shrink-0 bg-black/50">
+      <div className="col-span-2 h-full shrink-0 bg-black/50 overflow-y-scroll">
         <div className="px-5 py-5 h-full flex flex-col gap-3">
           <div className="">
             <AttachmentInput publicCaseId={id} />
           </div>
-          <div className="grow overflow-hidden overflow-y-scroll no-scrollbar">
+          <div className="grow">
             <ListContributions id={id} />
           </div>
         </div>
