@@ -90,6 +90,7 @@ function ListContributions({ id }) {
             attachment={contribution.attachment}
             content={contribution.content}
             created_at={contribution.created_at}
+            // fit
           />
         );
       })}

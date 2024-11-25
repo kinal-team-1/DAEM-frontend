@@ -10,6 +10,7 @@ export function ContributionCard({
   rowMode = false,
   isLink = false,
   case_id = null,
+  fit = false,
 }) {
   const { locale } = useParams();
 
@@ -49,7 +50,7 @@ export function ContributionCard({
           data-row-mode={rowMode || null}
           className="rounded grow h-full overflow-hidden data-[row-mode]:px-5 sm:data-[row-mode]:w-[300px] sm:data-[row-mode]:shrink-0"
         >
-          {attachment && <Image attachment={attachment} />}
+          {attachment && <Image showButtons={false} attachment={attachment} />}
         </div>
       </div>
     </>
@@ -61,7 +62,8 @@ export function ContributionCard({
         <div
           // eslint-disable-next-line no-underscore-dangle
           key={id}
-          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2"
+          data-w-fit={fit || null}
+          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2 data-[w-fit]:w-fit"
         >
           {jsxContent}
         </div>
@@ -71,7 +73,8 @@ export function ContributionCard({
           to={`/${locale}/public-case/${case_id}`}
           // eslint-disable-next-line no-underscore-dangle
           key={id}
-          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2"
+          data-w-fit={fit || null}
+          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2 data-[w-fit]:w-fit"
         >
           {jsxContent}
         </Link>
