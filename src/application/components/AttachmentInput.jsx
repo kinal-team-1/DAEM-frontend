@@ -1,5 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
+// import { useMutation } from "@tanstack/react-query";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +10,7 @@ import { FileRender } from "./FileRender";
 import { DynamicTextArea } from "./DynamicTextArea";
 import { createContribution } from "../actions/POST/create-contribution";
 import { useAuthService } from "../../services/auth";
+import { useMutationWithToast } from "../hooks/use-mutation-with-toast";
 
 export function AttachmentInput({ publicCaseId }) {
   const [files, setFiles] = useState([]);
@@ -16,8 +19,7 @@ export function AttachmentInput({ publicCaseId }) {
   const { user } = useAuthService();
   const queryClient = useQueryClient();
 
-  const uploadFileMutation = useMutation({
-    mutationFn: uploadFile,
+  const uploadFileMutation = useMutationWithToast(uploadFile, {
     onSuccess: (data) => {
       const [uploadFileResponse, uploadFileMessage, uploadFileStatus] = data;
     },
@@ -26,9 +28,8 @@ export function AttachmentInput({ publicCaseId }) {
     },
   });
 
-  const createContributionMutation = useMutation({
-    mutationFn: createContribution,
-    onSuccess: (data) => {
+  const createContributionMutation = useMutationWithToast(createContribution, {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["contributions"],
       });

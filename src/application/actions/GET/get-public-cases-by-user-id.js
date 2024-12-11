@@ -10,6 +10,6 @@ export const getPublicCasesByUserId = ({ queryKey }) => {
   const [, { userId }] = queryKey;
   return client
     .get(`public-case/by-user/${userId}`)
-    .then((res) => [res.data.data, res.data.message])
+    .then((res) => [res.data.data, res.data.message, res.status])
     .catch(handleGenericError);
 };
