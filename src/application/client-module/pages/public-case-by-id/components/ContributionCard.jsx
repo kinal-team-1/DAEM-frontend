@@ -10,6 +10,7 @@ export function ContributionCard({
   rowMode = false,
   isLink = false,
   case_id = null,
+  fit = false,
 }) {
   const { locale } = useParams();
 
@@ -36,21 +37,20 @@ export function ContributionCard({
       </div>
       <div
         data-row-mode={rowMode || null}
-        className="text-xs flex flex-col gap-2 h-[200px] data-[row-mode]:h-[300px] sm:data-[row-mode]:h-[200px] sm:data-[row-mode]:flex-row sm:data-[row-mode]:gap-5"
+        className={
+          !attachment
+            ? "text-xs"
+            : "text-xs flex flex-col gap-2 h-[200px] data-[row-mode]:h-[300px] sm:data-[row-mode]:h-[200px] sm:data-[row-mode]:flex-row sm:data-[row-mode]:gap-5"
+        }
       >
+        <div data-row-mode={rowMode || null} className="data-[row-mode]:py-4">
+          {content}
+        </div>
         <div
           data-row-mode={rowMode || null}
           className="rounded grow h-full overflow-hidden data-[row-mode]:px-5 sm:data-[row-mode]:w-[300px] sm:data-[row-mode]:shrink-0"
         >
-          {attachment && <Image attachment={attachment} />}
-          {!attachment && (
-            <div className="w-full h-full border border-2 border-dashed flex flex-col justify-center items-center">
-              <span className="text-xl">No Attachments</span>
-            </div>
-          )}
-        </div>
-        <div data-row-mode={rowMode || null} className="data-[row-mode]:py-4">
-          {content}
+          {attachment && <Image showButtons={false} attachment={attachment} />}
         </div>
       </div>
     </>
@@ -62,7 +62,8 @@ export function ContributionCard({
         <div
           // eslint-disable-next-line no-underscore-dangle
           key={id}
-          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2"
+          data-w-fit={fit || null}
+          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2 data-[w-fit]:w-fit"
         >
           {jsxContent}
         </div>
@@ -72,7 +73,8 @@ export function ContributionCard({
           to={`/${locale}/public-case/${case_id}`}
           // eslint-disable-next-line no-underscore-dangle
           key={id}
-          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2"
+          data-w-fit={fit || null}
+          className="bg-black/70 p-3 px-6 rounded-xl flex flex-col gap-2 data-[w-fit]:w-fit"
         >
           {jsxContent}
         </Link>

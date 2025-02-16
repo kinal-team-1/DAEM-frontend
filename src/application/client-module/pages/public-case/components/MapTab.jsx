@@ -2,10 +2,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Marker, Popup, useMap } from "react-leaflet";
+import { Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import { Icon } from "leaflet";
 import PropTypes from "prop-types";
-import { MapComponent } from "../../../../components/MapReact.jsx";
+import { MapComponent } from "../../../../components/MapReact";
 
 const iconRed = new Icon({
   iconUrl: "/marker-icon-red.png",
@@ -13,14 +13,19 @@ const iconRed = new Icon({
     "ml-[-12px] mt-[-41px] w-[25px] h-[41px] transform translate3d-[222px,100px,0px] z-[100]",
 });
 
-export function MapTab({ publicCases }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+export function MapTab({ publicCases, zoom }) {
+  const [searchParams] = useSearchParams();
   const [coordinates, setCoordinates] = useState([
     searchParams.get("lat"),
     searchParams.get("long"),
   ]);
   const [lat, long] = coordinates;
   const radius = searchParams.get("radius");
+
+  useEffect(() => {
+    setCoordinates([searchParams.get("lat"), searchParams.get("long")]);
+  }, [searchParams.get("lat"), searchParams.get("long")]);
+
   useEffect(() => {
     if (lat && long) return;
 
@@ -41,9 +46,10 @@ export function MapTab({ publicCases }) {
           radius={Number(radius) || null}
           coordinates={[Number(lat), Number(long)]}
           isMarkerDraggable={false}
+          zoom={zoom.current}
           className="w-full h-full"
         >
-          <MapContext lat={lat} long={long} />
+          <MapContext lat={lat} long={long} zoom={zoom} />
           {publicCases &&
             publicCases.map((pub) => {
               // eslint-disable-next-line no-shadow
@@ -65,7 +71,7 @@ export function MapTab({ publicCases }) {
                       </div>
                       <Link
                         // eslint-disable-next-line no-underscore-dangle
-                        to={`/public-case/${pub._id}`}
+                        to={`${pub._id}`}
                         className="text-2xl text-green-400"
                       >
                         <FontAwesomeIcon icon={faChevronRight} />
@@ -81,8 +87,17 @@ export function MapTab({ publicCases }) {
   );
 }
 
-function MapContext({ lat, long }) {
+function MapContext({ lat, long, zoom }) {
   const map = useMap();
+  useMapEvents({
+    zoomend: (event) => {
+      if (zoom) zoom.current = map.getZoom();
+    },
+  });
+
+  useEffect(() => {
+    if (zoom) zoom.current = map.getZoom();
+  }, []);
 
   useEffect(() => {
     if (!lat || !long) return;
@@ -92,6 +107,12 @@ function MapContext({ lat, long }) {
 
   return null;
 }
+
+MapContext.propTypes = {
+  lat: PropTypes.string,
+  long: PropTypes.string,
+  zoom: PropTypes.object,
+};
 
 MapTab.propTypes = {
   publicCases: PropTypes.arrayOf(
@@ -103,4 +124,5 @@ MapTab.propTypes = {
       attachment: PropTypes.string,
     }),
   ).isRequired,
+  zoom: PropTypes.object,
 };

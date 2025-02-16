@@ -10,7 +10,7 @@ import { handleGenericError } from "../handle-generic-error";
  */
 export const uploadFile = (file) => {
   return client
-    .post("attachment/upload", { filepath: file.path })
+    .post("attachment/upload", { filepath: file.name })
     .then(async (res) => {
       // Idk why they choose to use `PUT`, such a stupid decision
       // cost me hours

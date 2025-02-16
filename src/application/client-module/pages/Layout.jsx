@@ -27,7 +27,7 @@ export function Layout({ alternativeBackground = false }) {
         <div className="bg-black/30 w-full h-full absolute" />
       </div>
       <Navbar role={user.role || ""} />
-      <div className="overflow-hidden overflow-y-scroll grow no-scrollbar">
+      <div className="grow overflow-hidden">
         <Outlet />
       </div>
     </div>

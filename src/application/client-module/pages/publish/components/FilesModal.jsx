@@ -72,6 +72,10 @@ export function FilesModal({
               setFiles((prevFiles) => [...prevFiles, fileResponse]);
               newFiles.current = [...newFiles.current, fileResponse];
             }}
+            onFileFailed={(file) => {
+              setFiles((prevFiles) => prevFiles.filter((f) => f !== file));
+              newFiles.current = newFiles.current.filter((f) => f !== file);
+            }}
           />
           <button
             type="submit"

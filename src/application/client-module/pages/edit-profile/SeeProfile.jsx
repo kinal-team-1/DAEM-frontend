@@ -41,7 +41,7 @@ export function SeeProfile({ user }) {
   }, []);
 
   return (
-    <div className="flex flex-col min-[900px]:flex-row h-full text-white">
+    <div className="flex flex-col min-[900px]:flex-row h-full overflow-y-scroll min-[900px]:overflow-y-hidden text-white">
       <div className="bg-black/30 grow h-full min-[900px]:w-[350px] min-[900px]:grow-0 shrink-0 flex flex-col items-center py-5 gap-2 px-10">
         <div className="flex justify-center">
           <div className="min-[900px]:size-[150px] size-[200px] rounded-full bg-black border-2 text-6xl font-bold flex items-center justify-center">
@@ -76,8 +76,8 @@ export function SeeProfile({ user }) {
         )}
         {isEdit && <FormEditProfile searchParams={searchParams} user={user} />}
       </div>
-      <div className="grow h-full shrink-0 min-[900px]:shrink flex flex-col">
-        <div className="grid grid-cols-2">
+      <div className="grow min-h-full shrink-0 min-[900px]:shrink flex flex-col relative min-[900px]:overflow-y-scroll">
+        <div className="grid grid-cols-2 sticky top-0 z-10">
           <div className="col-span-1">
             <Link
               to={`./?${addQueryParams(searchParams, "tab", "cases")}`}
@@ -97,7 +97,7 @@ export function SeeProfile({ user }) {
             </Link>
           </div>
         </div>
-        <div className="px-3 min-w-[900px]:px-10 py-5 grow overflow-y-scroll">
+        <div className="px-3 min-w-[900px]:px-10 py-5 grow">
           {isCasesTab && <ListPublicCases user={user} />}
           {isContributionsTab && <ListContributions user={user} />}
         </div>

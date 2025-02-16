@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getContributionsByUserId } from "../../../../actions/GET/get-contributions-by-user-id";
 import { useLocaleService } from "../../../../../services/locale";
-import { ContributionCard } from "../../public-case-by-id/components/ContributionCard";
+import { ContributionCard } from "../../public-case-by-id/components/ContributionCard.jsx";
 
 export function ListContributions({ user }) {
   const { LL } = useLocaleService();
@@ -28,6 +28,8 @@ export function ListContributions({ user }) {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log({ contributions });
+
   return (
     <div className="flex flex-col gap-3 items-center">
       <h2 className="text-white text-2xl">
@@ -36,19 +38,21 @@ export function ListContributions({ user }) {
       <div className="flex flex-col max-w-[700px] gap-3">
         {contributions.map((contribution) => (
           <ContributionCard
-            rowMode
             // eslint-disable-next-line no-underscore-dangle
             key={contribution._id}
             // eslint-disable-next-line no-underscore-dangle
             id={contribution._id}
-            user_id={contribution.user_id}
-            attachment={{ _id: contribution.attachment }}
+            user_id={user}
+            attachment={
+              contribution.attachment ? { _id: contribution.attachment } : null
+            }
             content={contribution.content}
             created_at={contribution.created_at}
             case_id={contribution.case_id}
             isLink
           />
         ))}
+
         {contributions.length === 0 && (
           <div className="text-white py-10">
             {LL?.PAGES.EDIT_PROFILE.TABS.CONTRIBUTIONS.NO_CONTRIBUTIONS_MESSAGE()}
